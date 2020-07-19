@@ -10,8 +10,13 @@ use Illuminate\Support\Facades\Artisan;
 class HomeController extends Controller
 {
 	
-    public function __construct()
+    public function __construct(Request $req)
     {
+		if($req->header('Authorization') != env('TOKENKU')){
+			echo response()->json(['code' => '401', 'contents' => 'Invalid token']);
+			die;
+		}
+		
         // Cache::flush();
     }
 	
