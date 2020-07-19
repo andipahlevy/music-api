@@ -28,7 +28,7 @@ class HomeController extends Controller
 			$html = $html.'<endHTML>';
 			$data = str_replace(',<endHTML>','',$html);
 			$datax = (json_decode($data));
-			$respon['contents'] = Cache::remember('ytrend', (60*24), function () use($Master) {
+			$respon['contents'] = Cache::remember($q, (60*24), function () use($datax) {
 				foreach($datax as $k=> $e){ 
 					if(isset($e->videoRenderer)){
 						$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
