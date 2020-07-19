@@ -15,8 +15,8 @@
 $router->group(['namespace' => 'Eks'], function() use ($router)
 {
     
-	$router->get('/', [
-		'as' => 'home', 'uses' => 'HomeController@index'
+	$router->get('/search/{q}', [
+		'as' => 'home', 'uses' => 'HomeController@search'
 	]);
 	
 	

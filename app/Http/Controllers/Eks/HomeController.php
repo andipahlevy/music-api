@@ -2,61 +2,54 @@
 
 namespace App\Http\Controllers\Eks;
 use App\Http\Controllers\Controller;
-use App\Providers\Master;
 use Illuminate\Support\Facades\Cache;
-use App\Models\SiteMap;
-use App\Jobs\AddSitemap;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
 class HomeController extends Controller
 {
-	private $cmd = ['videv:FlushCache','videv:FlushSitemap'];
 	
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         // Cache::flush();
     }
 	
-	public function index(){
-		
-		$html = $this->get_html(urlencode($_GET['q']));
-
-		$exp = explode('"itemSectionRenderer":{"contents":',$html)[1];
-		$exp = explode('"continuations":',$exp)[0];
-		$html = str_replace(';','',$exp);
-		$html = $html.'<endHTML>';
-		$data = str_replace(',<endHTML>','',$html);
-		$datax = (json_decode($data));
+	public function search($q){
+		$respon = [];
 		$data = [];
-		
-		// dd($datax);
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$html = $this->get_html(urlencode($q));
+			$exp = explode('"itemSectionRenderer":{"contents":',$html)[1];
+			$exp = explode('"continuations":',$exp)[0];
+			$html = str_replace(';','',$exp);
+			$html = $html.'<endHTML>';
+			$data = str_replace(',<endHTML>','',$html);
+			$datax = (json_decode($data));
+			$respon['contents'] = Cache::remember('ytrend', (60*24), function () use($Master) {
+				foreach($datax as $k=> $e){ 
+					if(isset($e->videoRenderer)){
+						$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
+						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+							continue;
+						}
+						$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
+						$ddetail['vid'] 		= $e->videoRenderer->videoId;
+						$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
+						
+						$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
 
-		foreach($datax as $k=> $e){ 
-			if(isset($e->videoRenderer)){
-				$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
-				if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
-					continue;
+						$data[] = $ddetail;
+						if($k===15) 
+							break;
+					}
 				}
-				$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
-				$ddetail['vid'] 		= $e->videoRenderer->videoId;
-				$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
-				
-				$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
-
-				$data[] = $ddetail;
-				if($k===15) 
-					break;
-			}
+				return $data;	
+			 });
 		}
-
-		$respon['contents'] = $data;
+		
 		echo json_encode($respon
 			//, JSON_PRETTY_PRINT
 		);
