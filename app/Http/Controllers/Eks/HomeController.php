@@ -25,6 +25,7 @@ class HomeController extends Controller
     }
 	
 	public function index(){
+		
 		$html = $this->get_html(urlencode($_GET['q']));
 
 		$exp = explode('"itemSectionRenderer":{"contents":',$html)[1];
