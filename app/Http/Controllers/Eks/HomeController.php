@@ -28,8 +28,9 @@ class HomeController extends Controller
 			$html = $html.'<endHTML>';
 			$data = str_replace(',<endHTML>','',$html);
 			$datax = (json_decode($data));
-			$respon['contents'] = Cache::remember($q, (60*24), function () use($datax) {
-				foreach($datax as $k=> $e){ 
+			$day = env('CACHE_DAY',30);
+			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($datax) {
+				foreach($datax as $k=> $e){
 					if(isset($e->videoRenderer)){
 						$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
 						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
