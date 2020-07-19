@@ -35,22 +35,25 @@ class HomeController extends Controller
 		$data = str_replace(',<endHTML>','',$html);
 		$datax = (json_decode($data));
 		$data = [];
+		
+		// dd($datax);
 
 		foreach($datax as $k=> $e){ 
-			
-			$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
-			if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
-				continue;
-			}
-			$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
-			$ddetail['vid'] 		= $e->videoRenderer->videoId;
-			$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
-			
-			$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
+			if(isset($e->videoRenderer)){
+				$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
+				if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+					continue;
+				}
+				$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
+				$ddetail['vid'] 		= $e->videoRenderer->videoId;
+				$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
+				
+				$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
 
-			$data[] = $ddetail;
-			if($k===15) 
-				break;
+				$data[] = $ddetail;
+				if($k===15) 
+					break;
+			}
 		}
 
 		$respon['contents'] = $data;
