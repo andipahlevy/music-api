@@ -19,37 +19,7 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'home', 'uses' => 'HomeController@index'
 	]);
 	
-	$router->get('/{q}', [
-		'as' => 'find', 'uses' => 'HomeController@find'
-	]);
 	
-	$router->get('/suggest/list', [
-		'as' => 'suggest', 'uses' => 'HomeController@suggest'
-	]);
-	
-	$router->get('/video/{title}/{id}/{desc}/{meta}', [
-		'as' => 'detail', 'uses' => 'HomeController@detail'
-	]);
-	
-	$router->get('/sitemap/xml', [
-		'as' => 'sitemap', 'uses' => 'HomeController@sitemap'
-	]);
-	
-	$router->get('/cmd/run/{cmd}', [
-		'as' => 'cmdrun', 'uses' => 'HomeController@cmdrun'
-	]);
-	
-	$router->get('/page/about', [
-		'as' => 'page.about', 'uses' => 'HomeController@about'
-	]);
-	
-	$router->get('/page/contact', [
-		'as' => 'page.contact', 'uses' => 'HomeController@contact'
-	]);
-	
-	$router->get('/page/shop', [
-		'as' => 'page.shop', 'uses' => 'HomeController@shop'
-	]);
 	
 	
 });
