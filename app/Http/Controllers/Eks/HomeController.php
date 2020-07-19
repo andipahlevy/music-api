@@ -26,7 +26,8 @@ class HomeController extends Controller
 
     public function index()
 	{
-		$Master = new Master;
+		echo 1;die;
+		// $Master = new Master;
 		
 		if (Cache::has('ytrend')){
 			$RestAPI = Cache::get('ytrend');
