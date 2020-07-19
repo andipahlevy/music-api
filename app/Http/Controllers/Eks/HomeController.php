@@ -13,6 +13,7 @@ class HomeController extends Controller
     public function __construct(Request $req)
     {
 		if($req->header('Authorization') != env('TOKENKU')){
+			header('Content-Type: application/json');
 			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
 			die;
 		}
@@ -21,6 +22,7 @@ class HomeController extends Controller
     }
 	
 	public function search($q){
+		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
 		if (Cache::has($q)){
