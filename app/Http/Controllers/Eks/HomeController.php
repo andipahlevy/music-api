@@ -35,6 +35,7 @@ class HomeController extends Controller
 			$html = $html.'<endHTML>';
 			$data = str_replace(',<endHTML>','',$html);
 			$datax = (json_decode($data));
+			$jmld = count($datax);
 			$day = env('CACHE_DAY',30);
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($datax) {
 				foreach($datax as $k=> $e){
@@ -50,7 +51,7 @@ class HomeController extends Controller
 						$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
 
 						$data[] = $ddetail;
-						if($k===15) 
+						if($jmld > 15 && $k===15) 
 							break;
 					}
 				}
