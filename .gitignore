@@ -3,5 +3,7 @@
 Homestead.json
 Homestead.yaml
 .env
+/public/mp3
+/public/theme/img
 /public/theme/img
 /public/theme/travel doc
