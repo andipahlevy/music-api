@@ -13,13 +13,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		if($req->header('Authorization') != env('TOKENKU')){
-			header('Content-Type: application/json');
-			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			die;
-		}
-		
-        // Cache::flush();
+		// if($req->header('Authorization') != env('TOKENKU')){
+			// header('Content-Type: application/json');
+			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			// die;
+		// }
     }
 	
 	public function playlist($q){
@@ -67,29 +65,35 @@ class HomeController extends Controller
 			$html = str_replace(';','',$exp);
 			$html = $html.'<endHTML>';
 			$data = str_replace(',<endHTML>','',$html);
+			$datax = [];
 			$datax = (json_decode($data));
-			$jmld = count($datax);
-			$day = env('CACHE_DAY',30);
-			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($datax) {
-				foreach($datax as $k=> $e){
-					if(isset($e->videoRenderer)){
-						$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
-						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
-							continue;
-						}
-						$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
-						$ddetail['vid'] 		= $e->videoRenderer->videoId;
-						$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
-						
-						$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
+			if($datax){
+				$jmld = count($datax);
+				$day = env('CACHE_DAY',30);
+				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($datax,$jmld) {
+					foreach($datax as $k=> $e){
+						if(isset($e->videoRenderer)){
+							$ddetail['duration']	= $e->videoRenderer->lengthText->simpleText;
+							if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+								continue;
+							}
+							$ddetail['title'] 		= $e->videoRenderer->title->runs[0]->text;
+							$ddetail['vid'] 		= $e->videoRenderer->videoId;
+							$ddetail['oriDesc']		= $e->videoRenderer->descriptionSnippet->runs[0]->text;
+							
+							$ddetail['img']			= $e->videoRenderer->thumbnail->thumbnails[(count($e->videoRenderer->thumbnail->thumbnails) - 1)]->url;
 
-						$data[] = $ddetail;
-						if($jmld > 15 && $k===15) 
-							break;
+							$data[] = $ddetail;
+							if($jmld > 15 && $k===15) 
+								break;
+						}
 					}
-				}
-				return $data;	
-			 });
+					return $data;	
+				 });
+				
+			}else{
+				$respon['contents'] = [];
+			}
 		}
 		
 		echo json_encode($respon
