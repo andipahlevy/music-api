@@ -19,15 +19,7 @@ class HomeController extends Controller
 			// die;
 		// }
     }
-	
-<<<<<<< HEAD
-	public function search($q){
-		// Cache::flush();die;
-		// header('Content-Type: application/json');
-		$respon = [];
-		$data = [];
-		
-=======
+
 	public function playlist($q){
 		header('Content-Type: application/json');
 		$respon = [];
@@ -64,7 +56,6 @@ class HomeController extends Controller
 	public function search($q){
 		$respon = [];
 		$data = [];
->>>>>>> d8db9189b19a0d80c6c6e3140f22cfe8c1dd96a1
 		if (Cache::has($q)){
 			// echo 1;die;
 			$respon['contents'] = Cache::get($q);
