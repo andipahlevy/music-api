@@ -21,13 +21,17 @@ class HomeController extends Controller
 	
 	public function search($q){
 		// Cache::flush();die;
-		header('Content-Type: application/json');
+		// header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
+		
 		if (Cache::has($q)){
+			// echo 1;die;
 			$respon['contents'] = Cache::get($q);
 		}else{
+			// echo 2;die;
 			$html = $this->get_html(urlencode($q));
+			echo($html);die;
 			$exp = explode('"itemSectionRenderer":{"contents":',$html)[1];
 			$exp = explode('"continuations":',$exp)[0];
 			$html = str_replace(';','',$exp);
@@ -35,6 +39,7 @@ class HomeController extends Controller
 			$data = str_replace(',<endHTML>','',$html);
 			$datax = [];
 			$datax = (json_decode($data));
+			print_r($datax);die;
 			if($datax){
 				$jmld = count($datax);
 				$day = env('CACHE_DAY',30);
