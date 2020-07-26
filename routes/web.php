@@ -18,6 +18,9 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	$router->get('/search/{q}', [
 		'as' => 'home', 'uses' => 'HomeController@search'
 	]);
+	$router->get('/playlist/{q}', [
+		'as' => 'home', 'uses' => 'HomeController@playlist'
+	]);
 	
 	
 	

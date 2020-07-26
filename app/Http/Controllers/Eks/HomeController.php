@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Youtube;
 
 class HomeController extends Controller
 {
@@ -19,12 +20,51 @@ class HomeController extends Controller
 		// }
     }
 	
+<<<<<<< HEAD
 	public function search($q){
 		// Cache::flush();die;
 		// header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
 		
+=======
+	public function playlist($q){
+		header('Content-Type: application/json');
+		$respon = [];
+		$data = [];
+		$day = 1;
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$video = Youtube::getPlaylistItemsByPlaylistId($q);
+			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
+				foreach($video['results'] as $result){
+					$ddetail['duration']	= '05:00';
+					
+					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+						// continue;
+					}
+					$ddetail['title'] 		= $result->snippet->title;
+					$ddetail['vid'] 		= $result->contentDetails->videoId;
+					$ddetail['oriDesc']		= '';
+					
+					$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+					$data[] = $ddetail;
+				}
+				
+				return $data;	
+			 });
+		}
+		
+		echo json_encode($respon
+			//, JSON_PRETTY_PRINT
+		);
+	}
+	
+	public function search($q){
+		$respon = [];
+		$data = [];
+>>>>>>> d8db9189b19a0d80c6c6e3140f22cfe8c1dd96a1
 		if (Cache::has($q)){
 			// echo 1;die;
 			$respon['contents'] = Cache::get($q);
