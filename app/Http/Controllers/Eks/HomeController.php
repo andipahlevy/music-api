@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Youtube;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,40 @@ class HomeController extends Controller
         // Cache::flush();
     }
 	
-	public function search($q){
+	public function playlist($q){
 		header('Content-Type: application/json');
+		$respon = [];
+		$data = [];
+		$day = 1;
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$video = Youtube::getPlaylistItemsByPlaylistId($q);
+			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
+				foreach($video['results'] as $result){
+					$ddetail['duration']	= '05:00';
+					
+					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+						// continue;
+					}
+					$ddetail['title'] 		= $result->snippet->title;
+					$ddetail['vid'] 		= $result->contentDetails->videoId;
+					$ddetail['oriDesc']		= '';
+					
+					$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+					$data[] = $ddetail;
+				}
+				
+				return $data;	
+			 });
+		}
+		
+		echo json_encode($respon
+			//, JSON_PRETTY_PRINT
+		);
+	}
+	
+	public function search($q){
 		$respon = [];
 		$data = [];
 		if (Cache::has($q)){

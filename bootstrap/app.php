@@ -46,6 +46,10 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+if (!class_exists('Youtube')) {
+    class_alias('Alaouy\Youtube\Facades\Youtube', 'Youtube');
+}
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -80,6 +84,7 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Laravel\Tinker\TinkerServiceProvider::class);
+$app->register(Alaouy\Youtube\YoutubeServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
