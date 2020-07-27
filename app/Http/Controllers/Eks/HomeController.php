@@ -174,7 +174,8 @@ class HomeController extends Controller
 	function clean($string) {
 	   // $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 
-	   return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+	   // return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+	   return preg_replace("/[^A-Za-z0-9\-\']/", '', $string); // Removes special chars.
 	}
 
 	function replace($str){
@@ -182,6 +183,6 @@ class HomeController extends Controller
 		$b = ['','','',''];
 		$text = str_replace($a, $b, strtoupper($str));
 		
-		return $this->clean(ucwords(strtolower($text)));
+		return ucwords(strtolower($text));
 	}
 }
