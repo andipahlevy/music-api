@@ -72,7 +72,7 @@ class HomeController extends Controller
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
 					$ddetail['duration']	= '';
-					dd($result);
+					
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 						// continue;
 					}
