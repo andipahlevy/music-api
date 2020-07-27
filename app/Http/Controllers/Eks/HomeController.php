@@ -186,6 +186,6 @@ class HomeController extends Controller
 		$tmp = ucwords(strtolower($text));
 		$a = ['( ',' )','()'];
 		$b = ['(',')',''];
-		return $text = str_replace($a, $b, strtoupper($str));
+		return $text = str_replace($a, $b, strtoupper($tmp));
 	}
 }
