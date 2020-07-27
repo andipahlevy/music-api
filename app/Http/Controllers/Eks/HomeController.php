@@ -13,12 +13,12 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		// if($req->header('Authorization') != env('TOKENKU')){
-			// header('Content-Type: application/json');
-			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			// die;
-		// }
-		Cache::flush();die;
+		if($req->header('Authorization') != env('TOKENKU')){
+			header('Content-Type: application/json');
+			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			die;
+		}
+		// Cache::flush();die;
     }
 	
 	public function playlist($q){
