@@ -54,6 +54,45 @@ class HomeController extends Controller
 	}
 	
 	public function search($q){
+		header('Content-Type: application/json');
+		$respon = [];
+		$data = [];
+		$day = 1;
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$params = [
+				'q'             => $q,
+				'type'          => 'video',
+				'part'          => 'id, snippet',
+				'maxResults'    => 50
+			];
+			$video = Youtube::searchAdvanced($params, true);
+			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
+				foreach($video['results'] as $result){
+					$ddetail['duration']	= '05:00';
+					// dd($result);
+					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+						// continue;
+					}
+					$ddetail['title'] 		= $result->snippet->title;
+					$ddetail['vid'] 		= $result->id->videoId;
+					$ddetail['oriDesc']		= '';
+					
+					$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+					$data[] = $ddetail;
+				}
+				
+				return $data;	
+			 });
+		}
+		
+		echo json_encode($respon
+			//, JSON_PRETTY_PRINT
+		);
+	}
+	
+	public function xsearch($q){
 		$respon = [];
 		$data = [];
 		if (Cache::has($q)){

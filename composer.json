@@ -31,7 +31,6 @@
         ],
 		"files": [
             "app/Helpers/simple_html_dom.php"
-            "alaouy/youtube/src/Youtube.php"
         ]
     },
     "scripts": {
