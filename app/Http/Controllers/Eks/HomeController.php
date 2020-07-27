@@ -76,7 +76,7 @@ class HomeController extends Controller
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 						// continue;
 					}
-					$ddetail['title'] 		= $result->snippet->title;
+					$ddetail['title'] 		= $this->replace($result->snippet->title);
 					$ddetail['vid'] 		= $result->id->videoId;
 					$ddetail['oriDesc']		= '';
 					
