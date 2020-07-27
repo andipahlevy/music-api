@@ -66,7 +66,7 @@ class HomeController extends Controller
 				'q'             => $q,
 				'type'          => 'video',
 				'part'          => 'id, snippet',
-				'maxResults'    => 50
+				'maxResults'    => 20
 			];
 			$video = Youtube::searchAdvanced($params, true);
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
