@@ -18,6 +18,7 @@ class HomeController extends Controller
 			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
 			// die;
 		// }
+		Cache::flush();die;
     }
 	
 	public function playlist($q){
