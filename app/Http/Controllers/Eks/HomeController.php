@@ -32,7 +32,7 @@ class HomeController extends Controller
 			$video = Youtube::getPlaylistItemsByPlaylistId($q);
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
-					$ddetail['duration']	= '05:00';
+					$ddetail['duration']	= '';
 					
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 						// continue;
@@ -71,8 +71,8 @@ class HomeController extends Controller
 			$video = Youtube::searchAdvanced($params, true);
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
-					$ddetail['duration']	= '05:00';
-					// dd($result);
+					$ddetail['duration']	= '';
+					dd($result);
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 						// continue;
 					}
