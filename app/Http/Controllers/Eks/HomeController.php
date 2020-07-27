@@ -182,6 +182,6 @@ class HomeController extends Controller
 		$b = ['','','',''];
 		$text = str_replace($a, $b, strtoupper($str));
 		
-		return ucwords(strtolower($text));
+		return $this->clean(ucwords(strtolower($text)));
 	}
 }
