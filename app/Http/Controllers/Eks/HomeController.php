@@ -202,7 +202,7 @@ class HomeController extends Controller
 				'maxResults'    => 20
 			];
 			$video = Youtube::searchAdvanced($params, true);
-			if(isset($video['results'])){
+			if(count($video['results']) > 0){
 				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 					foreach($video['results'] as $result){
 						$ddetail['duration']	= '';
