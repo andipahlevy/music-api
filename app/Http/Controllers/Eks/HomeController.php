@@ -204,7 +204,6 @@ class HomeController extends Controller
 			$video = Youtube::searchAdvanced($params, true);
 			// dd($video);
 			if($video['results']){
-				echo 1;die;
 				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 					foreach($video['results'] as $result){
 						$ddetail['duration']	= '';
