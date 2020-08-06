@@ -16,11 +16,21 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 {
     
 	$router->get('/search/{q}', [
-		'as' => 'home', 'uses' => 'HomeController@search'
+		'as' => 'search', 'uses' => 'HomeController@search'
 	]);
+	
 	$router->get('/playlist/{q}', [
-		'as' => 'home', 'uses' => 'HomeController@playlist'
+		'as' => 'playlist', 'uses' => 'HomeController@playlist'
 	]);
+	
+	
+	$router->get('/generate_icon/{title}', [
+		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
+	]);
+	$router->get('/generate_banner', [
+		'as' => 'generate_banner', 'uses' => 'HomeController@generate_banner'
+	]);
+	
 	
 	
 	
