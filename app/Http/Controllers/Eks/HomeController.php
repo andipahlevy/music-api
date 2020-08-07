@@ -35,9 +35,9 @@ class HomeController extends Controller
 
 			closedir($handle);
 		}
-		$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bannerBg.jpg"));
+		$image_1 = imagecreatefrompng(base_path("public/assets/images/bannerBg.png"));
 		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
-		$image_3 = imagecreatefrompng($capture[1]);
+		$image_3 = imagecreatefrompng($capture[2]);
 		imagealphablending($image_1, true);
 		imagesavealpha($image_1, true);
 		
@@ -46,14 +46,14 @@ class HomeController extends Controller
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_2, $x-200, $y, 0, 0, $w, $h);
 		
-		list($w, $h) = getimagesize($capture[1]);
+		list($w, $h) = getimagesize($capture[2]);
 		$x = (imagesx($image_1)/3) - ($w/2);
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
 		
 		$text = "Download Aplikasi \r\nPemutar Musik \r\nWeird Genius \r\nDi Google Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
-		$font = base_path('public/assets/font/Dead Revolution.otf');
+		$font = base_path('public/assets/font/ARI.ttf');
 		$size = "200";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$x = (410 - ($box[2] - $box[0])) / 2; 
@@ -74,7 +74,23 @@ class HomeController extends Controller
 			$font, 
 			$text);
 		
-		imagejpeg($image_1, base_path("public/assets/banner/banner.jpg"));
+		imagepng($image_1, base_path("public/assets/banner/banner.png"));
+		
+		//resize to playstore format
+		// $this->resizeImage(2598,2598,base_path("public/assets/banner/banner.png"),base_path("public/assets/banner/banner_2598.png")	);
+		$this->resizeImage(1024,500,base_path("public/assets/banner/banner.png"),base_path("public/assets/banner/banner_1024.png"));
+		
+	}
+	
+	public function resizeImage($p,$l, $s, $o)
+	{
+		list($width, $height) = getimagesize($s);
+		$newwidth = 1024 ;
+		$newheight = 500 ;
+		$thumb = imagecreatetruecolor($newwidth, $newheight);
+		$source = imagecreatefrompng($s);
+		imageCopyResampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+		imagepng($thumb, $o);
 	}
 	
 	public function generate_ss()
