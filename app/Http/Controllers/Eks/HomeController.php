@@ -23,24 +23,38 @@ class HomeController extends Controller
 	
 	public function generate_banner()
 	{
-		$dest = imagecreatefromjpeg(base_path('public/assets/images/bg1.jpg'));
-		$logo = base_path('public/assets/images/phone.png');
-		$src = imagecreatefrompng($logo);
-		$size = getimagesize($logo);
+		$capture = [];
+		if ($handle = opendir(base_path('public/assets/capture/'))) {
+
+			while (false !== ($entry = readdir($handle))) {
+
+				if ($entry != "." && $entry != "..") {
+					$capture[] = base_path('public/assets/capture/'.$entry);
+				}
+			}
+
+			closedir($handle);
+		}
+		$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bannerBg.jpg"));
+		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+		$image_3 = imagecreatefrompng($capture[1]);
+		imagealphablending($image_1, true);
+		imagesavealpha($image_1, true);
 		
-		list($w, $h) = getimagesize($logo);
-		$cen = (imagesx($dest)/2) - ($w/2);
-		$cen2 = (imagesx($dest)/2.5) - ($h/2);
-		imagecopymerge($dest, $src, $cen, $cen2, 0, 0, $size[0], $size[1], 80);
+		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+		$x = (imagesx($image_1)/3) - ($w/2);
+		$y = (imagesx($image_1)/4) - ($h/2);
+		imagecopy($image_1, $image_2, $x-200, $y, 0, 0, $w, $h);
 		
-		$white = imagecolorallocate($dest, 255, 255, 255);
-		$grey = imagecolorallocate($dest, 128, 128, 128);
-		$black = imagecolorallocate($dest, 0, 0, 0);
+		list($w, $h) = getimagesize($capture[1]);
+		$x = (imagesx($image_1)/3) - ($w/2);
+		$y = (imagesx($image_1)/4) - ($h/2);
+		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
 		
-		$text = 'Download App'; //TITLE
-		
+		$text = "Download Aplikasi \r\nPemutar Musik \r\nWeird Genius \r\nDi Google Playstore"; //TITLE
+		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$font = base_path('public/assets/font/Dead Revolution.otf');
-		$size = "20";
+		$size = "200";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$x = (410 - ($box[2] - $box[0])) / 2; 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
@@ -48,21 +62,56 @@ class HomeController extends Controller
 		
 		$fontwidth = 50;
 		
-		$center = (imagesx($dest)/2) - ($fontwidth*(strlen($text)/2));
+		$center = (imagesx($image_1)/2) - ($fontwidth*(strlen($text)/2));
 		
 		imagettftext(
-			$dest, 
-			70, 
+			$image_1, 
+			$size, 
 			0, 
-			$center, // margin left
-			$y, // margin top
-			$black, 
+			$center+1200, // margin left
+			$y+600, // margin top
+			$white, 
 			$font, 
 			$text);
 		
-		header('Content-Type: image/jpeg');
-		imagejpeg($dest, base_path("public/assets/banner/sample_large.jpg"));
-		//echo '<img src="'.base_path("public/assets/banner/sample_large.jpg").'" alt="">';
+		imagejpeg($image_1, base_path("public/assets/banner/banner.jpg"));
+	}
+	
+	public function generate_ss()
+	{
+		$capture = [];
+		if ($handle = opendir(base_path('public/assets/capture/'))) {
+
+			while (false !== ($entry = readdir($handle))) {
+
+				if ($entry != "." && $entry != "..") {
+					$capture[] = base_path('public/assets/capture/'.$entry);
+				}
+			}
+
+			closedir($handle);
+		}
+		
+		foreach($capture as $k=>$cap){
+		
+			$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bg$k.jpg"));
+			$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+			$image_3 = imagecreatefrompng($cap);
+			imagealphablending($image_1, true);
+			imagesavealpha($image_1, true);
+			
+			list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+			$cen = (imagesx($image_1)/2) - ($w/2);
+			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
+			imagecopy($image_1, $image_2, $cen, $cen2, 0, 0, $w, $h);
+			
+			list($w, $h) = getimagesize($cap);
+			$cen = (imagesx($image_1)/2) - ($w/2);
+			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
+			imagecopy($image_1, $image_3, $cen, $cen2, 0, 0, $w, $h);
+			
+			imagejpeg($image_1, base_path("public/assets/banner/capture_$k.jpg"));
+		}
 	}
 	
 	public function generate_icon($title)
@@ -71,12 +120,11 @@ class HomeController extends Controller
 		$dest = imagecreatefromjpeg(base_path('public/assets/images/img1.jpg'));
 		$logo = base_path('public/assets/images/sample.jpg');
 		$src = imagecreatefromjpeg($logo);
-		$size = getimagesize($logo);
 		
 		list($w, $h) = getimagesize($logo);
 		$cen = (imagesx($dest)/2) - ($w/2);
 		$cen2 = (imagesx($dest)/2.5) - ($h/2);
-		imagecopymerge($dest, $src, $cen, $cen2, 0, 0, $size[0], $size[1], 80);
+		imagecopymerge($dest, $src, $cen, $cen2, 0, 0, $w, $h, 80);
 		
 		$white = imagecolorallocate($dest, 255, 255, 255);
 		$grey = imagecolorallocate($dest, 128, 128, 128);
