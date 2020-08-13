@@ -33,6 +33,12 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	$router->get('/generate_ss', [
 		'as' => 'generate_ss', 'uses' => 'HomeController@generate_ss'
 	]);
+	$router->get('/generate_desc', [
+		'as' => 'generate_desc', 'uses' => 'HomeController@generate_desc'
+	]);
+	$router->get('/generate_all', [
+		'as' => 'generate_all', 'uses' => 'HomeController@generate_all'
+	]);
 	
 	
 	
