@@ -21,7 +21,42 @@ class HomeController extends Controller
 		// Cache::flush();die;
     }
 	
-	public function generate_banner()
+	public function generate_all()
+	{
+		$get = file_get_contents('C:\xampp\htdocs\mp3-maudi\app\data.json');
+		$M = json_decode($get);
+		
+		$this->generate_desc($M->app_name, $M->playlist_id);
+		$this->generate_banner($M->app_name, $M->playlist_id);
+		$this->generate_icon($M->app_name);
+	}
+	
+	public function generate_desc($appName, $id)
+	{
+		// $appName = 'Weird Genius';
+		// $id		= 'PLvcDcsZuRtTgRne9OVReiiMM3JCrli52g';
+		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
+		$file = base_path('public/assets/DESC.txt');
+		$cont = "Halo guys, kalo kalian ingin mendengarkan lagu $appName kalian bisa mendownload aplikasi pemutar musik ini.\r\nAnda tidak perlu lagi menghabiskan waktu untuk googling untuk mencari lagu $appName. Dalam aplikasi ini terdapat lagu-lagu hits yang mungkin anda cari seperti musik-musik di bawah ini.\r\n\r\n";
+		$limit = 9;
+		foreach($video['results'] as $k=>$result){
+			$tit = $this->replace($result->snippet->title);
+			if($tit == 'DELETED '){
+				$limit++;
+				continue;
+			}
+			$cont .= $tit."\r\n";
+			if($k==$limit){
+				break;
+			}
+		}
+		
+		$cont .= "\r\nKamu juga bisa menggunakan fitur pencarian jika lagu kesukaan kamu tidak ada di list. Semoga teman-teman sekalian terhibur dengan aplikasi ini.";
+		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
+		file_put_contents($file, $cont, LOCK_EX);
+	}
+	
+	public function generate_banner($appName)
 	{
 		$capture = [];
 		if ($handle = opendir(base_path('public/assets/capture/'))) {
@@ -51,7 +86,7 @@ class HomeController extends Controller
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
 		
-		$text = "Download Aplikasi \r\nPemutar Musik \r\nWeird Genius \r\nDi Google Playstore"; //TITLE
+		$text = "Download Aplikasi \r\nPemutar Musik \r\n$appName \r\nDi Google Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$font = base_path('public/assets/font/ARI.ttf');
 		$size = "200";
@@ -146,7 +181,7 @@ class HomeController extends Controller
 		$grey = imagecolorallocate($dest, 128, 128, 128);
 		$black = imagecolorallocate($dest, 0, 0, 0);
 		
-		$text = urldecode($title); //TITLE
+		$text = 'Lagu '.urldecode($title); //TITLE
 		
 		$font = base_path('public/assets/font/Dead Revolution.otf');
 		$size = "20";
@@ -196,7 +231,8 @@ class HomeController extends Controller
 		
 	}
 	
-	public function generate_image($source, $v, $desti){
+	public function generate_image($source, $v, $desti)
+	{
 		list($width, $height) = getimagesize($source);
 		$newwidth = $v;
 		$newheight = $v;
@@ -206,7 +242,8 @@ class HomeController extends Controller
 		imagepng($thumb, $desti);	
 	}
 	
-	public function replace_xml_string($app_name){
+	public function replace_xml_string($app_name)
+	{
 		$str='<?xml version="1.0" encoding="utf-8"?>
 				<resources>
 					<string name="app_name">'.$app_name.'</string>
@@ -218,7 +255,8 @@ class HomeController extends Controller
 		file_put_contents(base_path("public/assets/generated/values-v21/strings.xml"), $str);
 	}
 	
-	public function playlist($q){
+	public function playlist($q)
+	{
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
@@ -227,6 +265,9 @@ class HomeController extends Controller
 			$respon['contents'] = Cache::get($q);
 		}else{
 			$video = Youtube::getPlaylistItemsByPlaylistId($q);
+			
+			// echo json_encode($video['results']);die;
+			
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
 					$ddetail['duration']	= '';
@@ -237,8 +278,10 @@ class HomeController extends Controller
 					$ddetail['title'] 		= $this->replace($result->snippet->title);
 					$ddetail['vid'] 		= $result->contentDetails->videoId;
 					$ddetail['oriDesc']		= '';
-					
-					$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+					// if(!isset($result->snippet->thumbnails->medium)){
+						// echo json_encode($result->snippet->thumbnails);die;
+					// }
+					$ddetail['img']			= @$result->snippet->thumbnails->medium->url;
 					$data[] = $ddetail;
 				}
 				
