@@ -424,13 +424,13 @@ class HomeController extends Controller
 	}
 
 	function replace($str){
-		$a = ['VIDEO','LYRIC','LYRICS','LIRIK'];
-		$b = ['','','',''];
+		$a = ['VIDEO','LYRIC','LYRICS','LIRIK','CLIP'];
+		$b = ['','','','',''];
 		$text = str_replace($a, $b, strtoupper($str));
 		
 		$tmp = ucwords(strtolower($text));
-		$a = ['( ',' )','()'];
-		$b = ['(',')',''];
+		$a = ['( ',' )','()','  '];
+		$b = ['(',')','',' '];
 		return $text = str_replace($a, $b, strtoupper($tmp));
 	}
 }
