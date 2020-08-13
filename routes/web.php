@@ -30,6 +30,9 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	$router->get('/generate_banner', [
 		'as' => 'generate_banner', 'uses' => 'HomeController@generate_banner'
 	]);
+	$router->get('/generate_ss', [
+		'as' => 'generate_ss', 'uses' => 'HomeController@generate_ss'
+	]);
 	
 	
 	
