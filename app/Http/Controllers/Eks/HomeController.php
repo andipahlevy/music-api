@@ -14,11 +14,10 @@ class HomeController extends Controller
     public function __construct(Request $req)
     {
 		if($req->header('Authorization') != env('TOKENKU')){
-			// header('Content-Type: application/json');
-			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			// die;
+			header('Content-Type: application/json');
+			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			die;
 		}
-		// Cache::flush();die;
     }
 	
 	public function generate_all()
@@ -424,8 +423,8 @@ class HomeController extends Controller
 	}
 
 	function replace($str){
-		$a = ['VIDEO','LYRIC','LYRICS','LIRIK','CLIP'];
-		$b = ['','','','',''];
+		$a = ['VIDEO','LYRIC','LYRICS','LIRIK','CLIP','KLIP'];
+		$b = ['','','','','',''];
 		$text = str_replace($a, $b, strtoupper($str));
 		
 		$tmp = ucwords(strtolower($text));

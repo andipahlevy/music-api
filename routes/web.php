@@ -39,6 +39,9 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	$router->get('/generate_all', [
 		'as' => 'generate_all', 'uses' => 'HomeController@generate_all'
 	]);
+	$router->get('/cache/clear', [
+		'as' => 'cache.clear', 'uses' => 'CacheController@clear'
+	]);
 	
 	
 	
