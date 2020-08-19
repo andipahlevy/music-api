@@ -13,11 +13,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		if($req->header('Authorization') != env('TOKENKU')){
-			header('Content-Type: application/json');
-			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			die;
-		}
+		// if($req->header('Authorization') != env('TOKENKU')){
+			// header('Content-Type: application/json');
+			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			// die;
+		// }
     }
 	
 	public function generate_all()
@@ -27,6 +27,7 @@ class HomeController extends Controller
 		
 		$this->generate_desc($M->app_name, $M->playlist_id);
 		$this->generate_banner($M->app_name, $M->playlist_id);
+		$this->generate_ss();
 		$this->generate_icon($M->app_name);
 	}
 	
@@ -35,7 +36,7 @@ class HomeController extends Controller
 		// $appName = 'Weird Genius';
 		// $id		= 'PLvcDcsZuRtTgRne9OVReiiMM3JCrli52g';
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
-		$file = base_path('public/assets/DESC.txt');
+		$file = base_path('public/assets/playstore/DESC.txt');
 		$cont = "Halo guys, kalo kalian ingin mendengarkan lagu $appName kalian bisa mendownload aplikasi pemutar musik ini.\r\nAnda tidak perlu lagi menghabiskan waktu untuk googling untuk mencari lagu $appName. Dalam aplikasi ini terdapat lagu-lagu hits yang mungkin anda cari seperti musik-musik di bawah ini.\r\n\r\n";
 		$limit = 9;
 		foreach($video['results'] as $k=>$result){
@@ -49,7 +50,7 @@ class HomeController extends Controller
 				break;
 			}
 		}
-		
+		$cont .= $tit."\r\nDan Masih banyak lagu lainnya.\r\n";
 		$cont .= "\r\nKamu juga bisa menggunakan fitur pencarian jika lagu kesukaan kamu tidak ada di list. Semoga teman-teman sekalian terhibur dengan aplikasi ini.";
 		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
 		file_put_contents($file, $cont, LOCK_EX);
@@ -71,7 +72,7 @@ class HomeController extends Controller
 		}
 		$image_1 = imagecreatefrompng(base_path("public/assets/images/bannerBg.png"));
 		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
-		$image_3 = imagecreatefrompng($capture[2]);
+		$image_3 = imagecreatefrompng($capture[1]);
 		imagealphablending($image_1, true);
 		imagesavealpha($image_1, true);
 		
@@ -80,7 +81,7 @@ class HomeController extends Controller
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_2, $x-200, $y, 0, 0, $w, $h);
 		
-		list($w, $h) = getimagesize($capture[2]);
+		list($w, $h) = getimagesize($capture[1]);
 		$x = (imagesx($image_1)/3) - ($w/2);
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
@@ -108,11 +109,11 @@ class HomeController extends Controller
 			$font, 
 			$text);
 		
-		imagepng($image_1, base_path("public/assets/banner/banner.png"));
+		imagepng($image_1, base_path("public/assets/playstore/banner.png"));
 		
 		//resize to playstore format
-		// $this->resizeImage(2598,2598,base_path("public/assets/banner/banner.png"),base_path("public/assets/banner/banner_2598.png")	);
-		$this->resizeImage(1024,500,base_path("public/assets/banner/banner.png"),base_path("public/assets/banner/banner_1024.png"));
+		// $this->resizeImage(2598,2598,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_2598.png")	);
+		$this->resizeImage(1024,500,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_1024.png"));
 		
 	}
 	
@@ -160,7 +161,7 @@ class HomeController extends Controller
 			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
 			imagecopy($image_1, $image_3, $cen, $cen2, 0, 0, $w, $h);
 			
-			imagejpeg($image_1, base_path("public/assets/banner/capture_$k.jpg"));
+			imagejpeg($image_1, base_path("public/assets/playstore/capture_$k.jpg"));
 		}
 	}
 	
@@ -183,21 +184,22 @@ class HomeController extends Controller
 		$text = 'Lagu '.urldecode($title); //TITLE
 		
 		$font = base_path('public/assets/font/Dead Revolution.otf');
-		$size = "20";
+		$size = "60";
 		$box = imageftbbox( $size, 0, $font, $text ); 
-		$x = (410 - ($box[2] - $box[0])) / 2; 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
 		$y -= $box[7]; 
 		
-		$fontwidth = 50;
+		$bbox = imagettfbbox($size, 0, $font, $text);
+		$center1 = (imagesx($dest) / 2) - (($bbox[2] - $bbox[0]) / 2);
 		
-		$center = (imagesx($dest)/2) - ($fontwidth*(strlen($text)/2));
+		
+		// $center = (imagesx($dest)/2) - ($fontwidth*(strlen($text)/2));
 		
 		imagettftext(
 			$dest, 
-			70, 
+			$size, 
 			0, 
-			$center, // margin left
+			$center1, // margin left
 			$y, // margin top
 			$black, 
 			$font, 
