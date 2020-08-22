@@ -35,8 +35,8 @@ class HomeController extends Controller
 		$len = count($crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div'));
 		for($i=1; $i<=$len; $i++){
 			$content[] = [
-				'name'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div[1]/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text(),
-				'url'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div[1]/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href'),
+				'name'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text(),
+				'url'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href'),
 			];
 		}
 		
