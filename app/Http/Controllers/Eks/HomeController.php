@@ -37,10 +37,13 @@ class HomeController extends Controller
 			$name = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text();
 			$img  = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[1]/div/span[1]/img')->attr('data-src');
 			$url  = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href');
+			if($name == 'Moon Hunter Game'){
+				continue;
+			}
 			$content[] = [
 				'name'	=>$name,
 				'img'	=>route('alias',['url'=>base64_encode($img)]),
-				'url'	=>$url,
+				'url'	=>explode('?',$url)[1],
 			];
 		}
 		
