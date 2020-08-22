@@ -34,11 +34,13 @@ class HomeController extends Controller
 		$content = [];
 		$len = count($crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div'));
 		for($i=1; $i<=$len; $i++){
-			// dd($crawler);
+			$name = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text();
+			$img  = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[1]/div/span[1]/img')->attr('data-src');
+			$url  = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href');
 			$content[] = [
-				'name'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text(),
-				'img'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[1]/div/span[1]/img')->attr('data-src'),
-				'url'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href'),
+				'name'	=>$name,
+				'img'	=>route('alias',['url'=>base64_encode($img)]),
+				'url'	=>$url,
 			];
 		}
 		
@@ -55,7 +57,6 @@ class HomeController extends Controller
 	
 	public function alias($url)
 	{
-		// return '<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="">';
 		$img = base64_decode($url);
 		$fp = fopen($img, 'rb');
 
