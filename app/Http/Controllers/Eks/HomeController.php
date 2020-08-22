@@ -343,7 +343,9 @@ class HomeController extends Controller
 					// if(!isset($result->snippet->thumbnails->medium)){
 						// echo json_encode($result->snippet->thumbnails);die;
 					// }
-					$ddetail['img']			= @$result->snippet->thumbnails->medium->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]) : '';
+					if(@$result->snippet->thumbnails->medium->url != ''){
+						$ddetail['img']			= route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]);
+					}
 					$data[] = $ddetail;
 				}
 				
