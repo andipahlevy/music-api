@@ -16,11 +16,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		// if($req->header('Authorization') != env('TOKENKU')){
-			// header('Content-Type: application/json');
-			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			// die;
-		// }
+		if($req->header('Authorization') != env('TOKENKU')){
+			header('Content-Type: application/json');
+			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			die;
+		}
     }
 	
 	public function myapp()
@@ -340,7 +340,7 @@ class HomeController extends Controller
 					// if(!isset($result->snippet->thumbnails->medium)){
 						// echo json_encode($result->snippet->thumbnails);die;
 					// }
-					$ddetail['img']			= @$result->snippet->thumbnails->medium->url;
+					$ddetail['img']			= @$result->snippet->thumbnails->medium->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]) : '';
 					$data[] = $ddetail;
 				}
 				
@@ -382,7 +382,7 @@ class HomeController extends Controller
 						$ddetail['vid'] 		= $result->id->videoId;
 						$ddetail['oriDesc']		= '';
 						
-						$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+						$ddetail['img']			= @$result->snippet->thumbnails->medium->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]) : '';
 						$data[] = $ddetail;
 					}
 					
