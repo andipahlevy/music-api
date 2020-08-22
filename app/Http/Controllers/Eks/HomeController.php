@@ -7,6 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Youtube;
+use Goutte\Client;
+use Symfony\Component\HttpClient\HttpClient;
+
 
 class HomeController extends Controller
 {
@@ -19,6 +22,58 @@ class HomeController extends Controller
 			// die;
 		// }
     }
+	
+	public function myapp()
+	{
+		$query = 'Berita';
+        $url = "https://play.google.com/store/apps/developer?id=Videv+Studio";
+        $goutteClient = new Client();
+		new Client(HttpClient::create(['timeout' => 60]));
+        $crawler = $goutteClient->request('GET', $url);
+		
+		$content = [];
+		$len = count($crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div'));
+		for($i=1; $i<=$len; $i++){
+			$content[] = [
+				'name'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div[1]/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a/div')->text(),
+				'url'	=>$crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div[1]/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href'),
+			];
+		}
+		
+        if(count($content) > 0) {
+            $result['code'] = "200";
+            $result['contents'] = $content;
+        }else{
+            $result['code'] = "404";
+            $result['contents'] = "Empty";
+        }
+
+        return response()->json($result);
+	}
+	
+	public function alias($url)
+	{
+		// return '<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="">';
+		$img = base64_decode($url);
+		$fp = fopen($img, 'rb');
+
+		header('Content-type: image/jpeg;');
+		foreach ($http_response_header as $h) {
+			if (strpos($h, 'Content-Length:') === 0) {
+				header($h);
+				break;
+			}
+		}
+
+		fpassthru($fp);
+		exit;
+	}
+	
+	public function urlalias(){
+		$route = route('alias',['url'=>base64_encode('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png')]);
+		// die;
+		echo '<img src="'.$route.'" alt="">';
+	}
 	
 	public function generate_all()
 	{
@@ -295,7 +350,8 @@ class HomeController extends Controller
 		);
 	}
 	
-	public function search($q){
+	public function search($q)
+	{
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
@@ -339,7 +395,8 @@ class HomeController extends Controller
 		);
 	}
 	
-	public function xsearch($q){
+	public function xsearch($q)
+	{
 		$respon = [];
 		$data = [];
 		if (Cache::has($q)){
@@ -417,7 +474,8 @@ class HomeController extends Controller
 		return file_get_html("https://m.youtube.com/results?search_query=$query");
 	}
 
-	function clean($string) {
+	function clean($string)
+	{
 	   // $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 
 	   // return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
