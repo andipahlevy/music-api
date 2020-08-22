@@ -39,7 +39,7 @@ class HomeController extends Controller
 			$url  = $crawler->filterXPath('//body/div[1]/div[4]/c-wiz/div/div[2]/c-wiz/c-wiz/c-wiz/div/div[2]/div['.$i.']/c-wiz/div/div/div[2]/div/div/div[1]/div/div/div[1]/a')->attr('href');
 			$content[] = [
 				'name'	=>$name,
-				'img'	=>$img,
+				'img'	=>route('alias',['url'=>base64_encode($img)]),
 				'url'	=>$url,
 			];
 		}
@@ -340,7 +340,7 @@ class HomeController extends Controller
 					// if(!isset($result->snippet->thumbnails->medium)){
 						// echo json_encode($result->snippet->thumbnails);die;
 					// }
-					$ddetail['img']			= @$result->snippet->thumbnails->medium->url;
+					$ddetail['img']			= @$result->snippet->thumbnails->medium->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]) : '';
 					$data[] = $ddetail;
 				}
 				
@@ -382,7 +382,7 @@ class HomeController extends Controller
 						$ddetail['vid'] 		= $result->id->videoId;
 						$ddetail['oriDesc']		= '';
 						
-						$ddetail['img']			= $result->snippet->thumbnails->medium->url;
+						$ddetail['img']			= @$result->snippet->thumbnails->medium->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]) : '';
 						$data[] = $ddetail;
 					}
 					
