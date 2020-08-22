@@ -21,8 +21,7 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	
 	$router->get('/playlist/{q}', [
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
-	]);
-	
+	]);	
 	
 	$router->get('/generate_icon/{title}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
@@ -42,8 +41,15 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	$router->get('/cache/clear', [
 		'as' => 'cache.clear', 'uses' => 'CacheController@clear'
 	]);
-	
-	
+	$router->get('/urlalias', [
+		'as' => 'urlalias', 'uses' => 'HomeController@urlalias'
+	]);
+	$router->get('/alias/{url}', [
+		'as' => 'alias', 'uses' => 'HomeController@alias'
+	]);
+	$router->get('/myapp', [
+		'as' => 'myapp', 'uses' => 'HomeController@myapp'
+	]);
 	
 	
 	
