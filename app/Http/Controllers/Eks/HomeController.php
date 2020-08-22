@@ -332,6 +332,9 @@ class HomeController extends Controller
 			
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
+					if(@$result->snippet->thumbnails->medium->url == ''){
+						continue;
+					}
 					$ddetail['duration']	= '';
 					
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
@@ -340,9 +343,7 @@ class HomeController extends Controller
 					$ddetail['title'] 		= $this->replace($result->snippet->title);
 					$ddetail['vid'] 		= $result->contentDetails->videoId;
 					$ddetail['oriDesc']		= '';
-					// if(!isset($result->snippet->thumbnails->medium)){
-						// echo json_encode($result->snippet->thumbnails);die;
-					// }
+					
 					if(@$result->snippet->thumbnails->medium->url != ''){
 						$ddetail['img']			= route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]);
 					}
