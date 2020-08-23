@@ -26,7 +26,8 @@ class HomeController extends Controller
 	public function myapp()
 	{
 		$query = 'Berita';
-        $url = "https://play.google.com/store/apps/developer?id=Videv+Studio";
+        // $url = "https://play.google.com/store/apps/developer?id=Videv+Studio";
+        $url = "https://play.google.com/store/apps/developer?id=ValiantKiwi+Industries";
         $goutteClient = new Client();
 		new Client(HttpClient::create(['timeout' => 60]));
         $crawler = $goutteClient->request('GET', $url);
