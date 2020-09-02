@@ -362,6 +362,7 @@ class HomeController extends Controller
 	
 	public function search($q)
 	{
+		
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
@@ -385,7 +386,7 @@ class HomeController extends Controller
 						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 							// continue;
 						}
-						$ddetail['title'] 		= $this->replace($result->snippet->title);
+						$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
 						$ddetail['vid'] 		= $result->id->videoId;
 						$ddetail['oriDesc']		= '';
 						
@@ -400,9 +401,8 @@ class HomeController extends Controller
 			}
 		}
 		
-		echo json_encode($respon
-			//, JSON_PRETTY_PRINT
-		);
+		echo json_encode($respon,TRUE);die;
+		
 	}
 	
 	public function xsearch($q)
