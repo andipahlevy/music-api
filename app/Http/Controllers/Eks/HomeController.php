@@ -16,11 +16,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		// if($req->header('Authorization') != env('TOKENKU')){
-			// header('Content-Type: application/json');
-			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			// die;
-		// }
+		if($req->header('Authorization') != env('TOKENKU')){
+			header('Content-Type: application/json');
+			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			die;
+		}
     }
 	
 	public function myapp()
@@ -341,7 +341,7 @@ class HomeController extends Controller
 					if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
 						// continue;
 					}
-					$ddetail['title'] 		= $this->replace($result->snippet->title);
+					$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
 					$ddetail['vid'] 		= $result->contentDetails->videoId;
 					$ddetail['oriDesc']		= '';
 					
