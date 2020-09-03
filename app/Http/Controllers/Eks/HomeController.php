@@ -16,11 +16,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		if($req->header('Authorization') != env('TOKENKU')){
-			header('Content-Type: application/json');
-			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			die;
-		}
+		// if($req->header('Authorization') != env('TOKENKU')){
+			// header('Content-Type: application/json');
+			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			// die;
+		// }
     }
 	
 	public function myapp()
