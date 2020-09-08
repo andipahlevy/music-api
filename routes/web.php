@@ -23,6 +23,8 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
 	]);	
 	
+	
+	/*START GENERATE PLAYSTORE ASSET*/	
 	$router->get('/generate_icon/{title}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
 	]);
@@ -45,7 +47,7 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'urlalias', 'uses' => 'HomeController@urlalias'
 	]);
 	$router->get('/alias/{url}', [
-		'as' => 'alias', 'uses' => 'HomeController@alias'
+		'as' => 'alias', 'uses' => 'CacheController@alias'
 	]);
 	$router->get('/myapp', [
 		'as' => 'myapp', 'uses' => 'HomeController@myapp'

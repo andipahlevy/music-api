@@ -16,18 +16,18 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		// if($req->header('Authorization') != env('TOKENKU')){
-			// header('Content-Type: application/json');
-			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			// die;
-		// }
+		if($req->header('Authorization') != env('TOKENKU')){
+			header('Content-Type: application/json');
+			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			die;
+		}
     }
 	
 	public function myapp()
 	{
 		$query = 'Berita';
-        // $url = "https://play.google.com/store/apps/developer?id=Videv+Studio";
-        $url = "https://play.google.com/store/apps/developer?id=ValiantKiwi+Industries";
+        $url = "https://play.google.com/store/apps/developer?id=Videv+Studio";
+        // $url = "https://play.google.com/store/apps/developer?id=ValiantKiwi+Industries";
         $goutteClient = new Client();
 		new Client(HttpClient::create(['timeout' => 60]));
         $crawler = $goutteClient->request('GET', $url);
@@ -59,23 +59,6 @@ class HomeController extends Controller
         return response()->json($result);
 	}
 	
-	public function alias($url)
-	{
-		$img = base64_decode($url);
-		$fp = fopen($img, 'rb');
-
-		header('Content-type: image/jpeg;');
-		foreach ($http_response_header as $h) {
-			if (strpos($h, 'Content-Length:') === 0) {
-				header($h);
-				break;
-			}
-		}
-
-		fpassthru($fp);
-		exit;
-	}
-	
 	public function urlalias(){
 		$route = route('alias',['url'=>base64_encode('https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png')]);
 		// die;
@@ -90,13 +73,11 @@ class HomeController extends Controller
 		$this->generate_desc($M->app_name, $M->playlist_id);
 		$this->generate_banner($M->app_name, $M->playlist_id);
 		$this->generate_ss();
-		$this->generate_icon($M->app_name);
+		// $this->generate_icon($M->app_name);
 	}
 	
 	public function generate_desc($appName, $id)
 	{
-		// $appName = 'Weird Genius';
-		// $id		= 'PLvcDcsZuRtTgRne9OVReiiMM3JCrli52g';
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
 		$file = base_path('public/assets/playstore/DESC.txt');
 		$cont = "Halo guys, kalo kalian ingin mendengarkan lagu $appName kalian bisa mendownload aplikasi pemutar musik ini.\r\nAnda tidak perlu lagi menghabiskan waktu untuk googling untuk mencari lagu $appName. Dalam aplikasi ini terdapat lagu-lagu hits yang mungkin anda cari seperti musik-musik di bawah ini.\r\n\r\n";
@@ -133,17 +114,17 @@ class HomeController extends Controller
 			closedir($handle);
 		}
 		$image_1 = imagecreatefrompng(base_path("public/assets/images/bannerBg.png"));
-		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
-		$image_3 = imagecreatefrompng($capture[1]);
+		$image_2 = imagecreatefromjpeg($capture[1]);
+		$image_3 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
 		imagealphablending($image_1, true);
 		imagesavealpha($image_1, true);
 		
-		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+		list($w, $h) = getimagesize($capture[1]);
 		$x = (imagesx($image_1)/3) - ($w/2);
-		$y = (imagesx($image_1)/4) - ($h/2);
+		$y = (imagesx($image_1)/3.85) - ($h/2);
 		imagecopy($image_1, $image_2, $x-200, $y, 0, 0, $w, $h);
 		
-		list($w, $h) = getimagesize($capture[1]);
+		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
 		$x = (imagesx($image_1)/3) - ($w/2);
 		$y = (imagesx($image_1)/4) - ($h/2);
 		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
@@ -151,7 +132,7 @@ class HomeController extends Controller
 		$text = "Download Aplikasi \r\nPemutar Musik \r\n$appName \r\nDi Google Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$font = base_path('public/assets/font/ARI.ttf');
-		$size = "200";
+		$size = "150";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$x = (410 - ($box[2] - $box[0])) / 2; 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
@@ -208,19 +189,19 @@ class HomeController extends Controller
 		foreach($capture as $k=>$cap){
 		
 			$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bg$k.jpg"));
-			$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
-			$image_3 = imagecreatefrompng($cap);
+			$image_2 = imagecreatefromjpeg($cap);
+			$image_3 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
 			imagealphablending($image_1, true);
 			imagesavealpha($image_1, true);
-			
-			list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
-			$cen = (imagesx($image_1)/2) - ($w/2);
-			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
-			imagecopy($image_1, $image_2, $cen, $cen2, 0, 0, $w, $h);
 			
 			list($w, $h) = getimagesize($cap);
 			$cen = (imagesx($image_1)/2) - ($w/2);
 			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
+			imagecopy($image_1, $image_2, $cen, $cen2, 0, 0, $w, $h);
+			
+			list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+			$cen = (imagesx($image_1)/2) - ($w/2);
+			$cen2 = (imagesx($image_1)/0.97) - ($h/2);
 			imagecopy($image_1, $image_3, $cen, $cen2, 0, 0, $w, $h);
 			
 			imagejpeg($image_1, base_path("public/assets/playstore/capture_$k.jpg"));
@@ -492,7 +473,8 @@ class HomeController extends Controller
 	   return preg_replace("/[^A-Za-z0-9\-\']/", '', $string); // Removes special chars.
 	}
 
-	function replace($str){
+	function replace($str)
+	{
 		$a = ['VIDEO','LYRIC','LYRICS','LIRIK','CLIP','KLIP'];
 		$b = ['','','','','',''];
 		$text = str_replace($a, $b, strtoupper($str));
