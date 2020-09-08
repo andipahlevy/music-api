@@ -17,4 +17,21 @@ class CacheController extends Controller
 		Cache::flush();die;
 	}
 	
+	public function alias($url)
+	{
+		$img = base64_decode($url);
+		$fp = fopen($img, 'rb');
+
+		header('Content-type: image/jpeg;');
+		foreach ($http_response_header as $h) {
+			if (strpos($h, 'Content-Length:') === 0) {
+				header($h);
+				break;
+			}
+		}
+
+		fpassthru($fp);
+		exit;
+	}
+	
 }
