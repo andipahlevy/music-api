@@ -80,7 +80,7 @@ class HomeController extends Controller
 	{
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
 		$file = base_path('public/assets/playstore/DESC.txt');
-		$cont = "Halo guys, kalo kalian ingin mendengarkan lagu $appName kalian bisa mendownload aplikasi pemutar musik ini.\r\nAnda tidak perlu lagi menghabiskan waktu untuk googling untuk mencari lagu $appName. Dalam aplikasi ini terdapat lagu-lagu hits yang mungkin anda cari seperti musik-musik di bawah ini.\r\n\r\n";
+		$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan mp3 $appName yang populer dan sedang trending di aplikasi ini.\r\nKalian tidak perlu lagi menghabiskan waktu untuk googling untuk mencari mp3 $appName. Dalam aplikasi ini terdapat audio mp3 hits yang mungkin kalian cari seperti daftar di bawah ini.\r\n\r\n";
 		$limit = 9;
 		foreach($video['results'] as $k=>$result){
 			$tit = $this->replace($result->snippet->title);
@@ -94,8 +94,9 @@ class HomeController extends Controller
 			}
 		}
 		$cont .= $tit."\r\nDan Masih banyak lagu lainnya.\r\n";
-		$cont .= "\r\nKamu juga bisa menggunakan fitur pencarian jika lagu kesukaan kamu tidak ada di list. Semoga teman-teman sekalian terhibur dengan aplikasi ini.";
+		$cont .= "\r\nDi aplikasi pemutar mp3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan mp3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
 		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
+		$cont .= "\r\n\r\nDisclaimer: \r\nIni adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami baru saja memposting tautan yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		file_put_contents($file, $cont, LOCK_EX);
 	}
 	
@@ -226,7 +227,7 @@ class HomeController extends Controller
 		
 		$text = 'Lagu '.urldecode($title); //TITLE
 		
-		$font = base_path('public/assets/font/Dead Revolution.otf');
+		$font = base_path('public/assets/font/BackToBlackDemo-Z5mZ.ttf');
 		$size = "60";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
@@ -234,9 +235,6 @@ class HomeController extends Controller
 		
 		$bbox = imagettfbbox($size, 0, $font, $text);
 		$center1 = (imagesx($dest) / 2) - (($bbox[2] - $bbox[0]) / 2);
-		
-		
-		// $center = (imagesx($dest)/2) - ($fontwidth*(strlen($text)/2));
 		
 		imagettftext(
 			$dest, 
@@ -248,7 +246,6 @@ class HomeController extends Controller
 			$font, 
 			$text);
 		
-		// header('Content-Type: image/jpeg');
 		
 		$size = [
 			'hdpi'=>[72,300],
@@ -260,18 +257,17 @@ class HomeController extends Controller
 		];
 		
 		imagepng($dest, base_path("public/assets/generated/sample_large.png"));
-		// die;
 		$this->generate_image(base_path("public/assets/generated/sample_large.png"), '512', base_path("public/assets/generated/logo512.png"));
 		
-		foreach($size as $k=>$s){
-			foreach($s as $kk=>$v){
-				$source = base_path("public/assets/generated/sample_large.png");
-				$nmFile = $kk==0?'icon':'logo';
-				$this->generate_image($source, $v, base_path("public/assets/generated/drawable-$k/$nmFile.png"));
-			}
-		}
+		// foreach($size as $k=>$s){
+			// foreach($s as $kk=>$v){
+				// $source = base_path("public/assets/generated/sample_large.png");
+				// $nmFile = $kk==0?'icon':'logo';
+				// $this->generate_image($source, $v, base_path("public/assets/generated/drawable-$k/$nmFile.png"));
+			// }
+		// }
 		
-		$this->replace_xml_string($text);
+		// $this->replace_xml_string($text);
 		
 	}
 	
