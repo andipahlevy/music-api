@@ -369,7 +369,7 @@ class HomeController extends Controller
 			
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
-					if(@$result->snippet->thumbnails->medium->url == ''){
+					if(@$result->snippet->thumbnails->high->url == ''){
 						continue;
 					}
 					$ddetail['duration']	= '';
@@ -381,8 +381,8 @@ class HomeController extends Controller
 					$ddetail['vid'] 		= $result->contentDetails->videoId;
 					$ddetail['oriDesc']		= '';
 					
-					if(@$result->snippet->thumbnails->medium->url != ''){
-						$ddetail['img']			= route('alias',['url'=>base64_encode($result->snippet->thumbnails->medium->url)]);
+					if(@$result->snippet->thumbnails->high->url != ''){
+						$ddetail['img']			= route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]);
 					}
 					$data[] = $ddetail;
 				}
