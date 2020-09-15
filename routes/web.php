@@ -25,7 +25,7 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 	
 	
 	/*START GENERATE PLAYSTORE ASSET*/	
-	$router->get('/generate_icon/{title}', [
+	$router->get('/generate_icon/{title}/{subtitle}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
 	]);
 	$router->get('/generate_banner', [

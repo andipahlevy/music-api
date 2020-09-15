@@ -14,7 +14,8 @@ class CacheController extends Controller
 	
 	public function clear()
 	{
-		Cache::flush();die;
+		Cache::flush();
+		echo 'cache clear';
 	}
 	
 	public function alias($url)

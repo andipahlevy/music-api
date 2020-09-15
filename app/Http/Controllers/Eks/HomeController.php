@@ -70,17 +70,19 @@ class HomeController extends Controller
 		$get = file_get_contents('C:\xampp\htdocs\mp3-maudi\app\data.json');
 		$M = json_decode($get);
 		
-		$this->generate_desc($M->app_name, $M->playlist_id);
-		$this->generate_banner($M->app_name, $M->playlist_id);
-		$this->generate_ss();
+		$this->generate_desc($M->app_name, $M->playlist_id, $M->app_id);
+		$this->generate_banner($M->app_name, $M->app_id);
+		$this->generate_ss($M->app_id);
 		// $this->generate_icon($M->app_name);
 	}
 	
-	public function generate_desc($appName, $id)
+	public function generate_desc($appName, $id, $app_id)
 	{
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
-		$file = base_path('public/assets/playstore/DESC.txt');
-		$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan mp3 $appName yang populer dan sedang trending di aplikasi ini.\r\nKalian tidak perlu lagi menghabiskan waktu untuk googling untuk mencari mp3 $appName. Dalam aplikasi ini terdapat audio mp3 hits yang mungkin kalian cari seperti daftar di bawah ini.\r\n\r\n";
+		$file = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\DESC.txt";
+		$file = str_replace(' ','',$file);
+		$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang trending di aplikasi ini. Audio yang disediakan juga lengkap loh. \r\n\r\nKelebihan aplikasi ini: \r\n- Aplikasi ringan dan irit kuota\r\n- MP3 bisa di dengarkan secara offline\r\n- Ada fitur pencarian MP3, jika kamu mau mencari MP3 lainnya\r\n- Bisa memutar acak dan mengulangi MP3
+		\r\n\r\nDalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.\r\n\r\n";
 		$limit = 9;
 		foreach($video['results'] as $k=>$result){
 			$tit = $this->replace($result->snippet->title);
@@ -93,14 +95,14 @@ class HomeController extends Controller
 				break;
 			}
 		}
-		$cont .= $tit."\r\nDan Masih banyak lagu lainnya.\r\n";
-		$cont .= "\r\nDi aplikasi pemutar mp3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan mp3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
+		$cont .= $tit."\r\nDan Masih banyak MP3 lainnya.\r\n";
+		$cont .= "\r\nDi aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan MP3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
 		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
-		$cont .= "\r\n\r\nDisclaimer: \r\nIni adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami baru saja memposting tautan yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+		$cont .= "\r\n\r\nDisclaimer: \r\nIni adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		file_put_contents($file, $cont, LOCK_EX);
 	}
 	
-	public function generate_banner($appName)
+	public function generate_banner($appName, $app_id)
 	{
 		$capture = [];
 		if ($handle = opendir(base_path('public/assets/capture/'))) {
@@ -115,25 +117,28 @@ class HomeController extends Controller
 			closedir($handle);
 		}
 		$image_1 = imagecreatefrompng(base_path("public/assets/images/bannerBg.png"));
-		$image_2 = imagecreatefromjpeg($capture[1]);
-		$image_3 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+		$image_4 = imagecreatefrompng(base_path('public/assets/generated/logo512.png'));
+		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+		$image_3 = imagecreatefrompng($capture[0]);
 		imagealphablending($image_1, true);
 		imagesavealpha($image_1, true);
-		
-		list($w, $h) = getimagesize($capture[1]);
-		$x = (imagesx($image_1)/3) - ($w/2);
-		$y = (imagesx($image_1)/3.85) - ($h/2);
-		imagecopy($image_1, $image_2, $x-200, $y, 0, 0, $w, $h);
 		
 		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
 		$x = (imagesx($image_1)/3) - ($w/2);
 		$y = (imagesx($image_1)/4) - ($h/2);
-		imagecopy($image_1, $image_3, $x-200, $y+50, 0, 0, $w, $h);
+		imagecopy($image_1, $image_2, $x-450, $y, 0, 0, $w, $h);
 		
-		$text = "Download Aplikasi \r\nPemutar Musik \r\n$appName \r\nDi Google Playstore"; //TITLE
+		list($w, $h) = getimagesize($capture[0]);
+		$x = (imagesx($image_1)/3) - ($w/2);
+		$y = (imagesx($image_1)/4) - ($h/2);
+		imagecopy($image_1, $image_3, $x-450, $y+50, 0, 0, $w, $h);
+		
+		
+		$text = "$appName"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
-		$font = base_path('public/assets/font/ARI.ttf');
-		$size = "150";
+		$black = imagecolorallocate($image_1, 0, 0, 0);
+		$font = base_path('public/assets/font/BackToBlackDemo-Z5mZ.ttf');
+		$size = "200";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$x = (410 - ($box[2] - $box[0])) / 2; 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
@@ -147,8 +152,18 @@ class HomeController extends Controller
 			$image_1, 
 			$size, 
 			0, 
-			$center+1200, // margin left
+			$center+0, // margin left
 			$y+600, // margin top
+			$black, 
+			$font, 
+			$text);
+			
+		imagettftext(
+			$image_1, 
+			$size, 
+			0, 
+			$center+10, // margin left
+			$y+610, // margin top
 			$white, 
 			$font, 
 			$text);
@@ -157,7 +172,9 @@ class HomeController extends Controller
 		
 		//resize to playstore format
 		// $this->resizeImage(2598,2598,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_2598.png")	);
-		$this->resizeImage(1024,500,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_1024.png"));
+		$deskuy = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\banner_1024.png";
+		$deskuy = str_replace(' ','',$deskuy);
+		$this->resizeImage(1024,500,base_path("public/assets/playstore/banner.png"),$deskuy);
 		
 	}
 	
@@ -172,7 +189,7 @@ class HomeController extends Controller
 		imagepng($thumb, $o);
 	}
 	
-	public function generate_ss()
+	public function generate_ss($app_id)
 	{
 		$capture = [];
 		if ($handle = opendir(base_path('public/assets/capture/'))) {
@@ -190,26 +207,28 @@ class HomeController extends Controller
 		foreach($capture as $k=>$cap){
 		
 			$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bg$k.jpg"));
-			$image_2 = imagecreatefromjpeg($cap);
-			$image_3 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+			$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+			$image_3 = imagecreatefrompng($cap);
 			imagealphablending($image_1, true);
 			imagesavealpha($image_1, true);
 			
-			list($w, $h) = getimagesize($cap);
+			list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
 			$cen = (imagesx($image_1)/2) - ($w/2);
 			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
 			imagecopy($image_1, $image_2, $cen, $cen2, 0, 0, $w, $h);
 			
-			list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+			list($w, $h) = getimagesize($cap);
 			$cen = (imagesx($image_1)/2) - ($w/2);
-			$cen2 = (imagesx($image_1)/0.97) - ($h/2);
+			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
 			imagecopy($image_1, $image_3, $cen, $cen2, 0, 0, $w, $h);
 			
-			imagejpeg($image_1, base_path("public/assets/playstore/capture_$k.jpg"));
+			$deskuy = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\capture_$k.jpg";
+			$deskuy = str_replace(' ','',$deskuy);
+			imagejpeg($image_1, $deskuy);
 		}
 	}
 	
-	public function generate_icon($title)
+	public function generate_icon($title,$subtitle)
 	{
 		
 		$dest = imagecreatefromjpeg(base_path('public/assets/images/img1.jpg'));
@@ -219,32 +238,72 @@ class HomeController extends Controller
 		list($w, $h) = getimagesize($logo);
 		$cen = (imagesx($dest)/2) - ($w/2);
 		$cen2 = (imagesx($dest)/2.5) - ($h/2);
-		imagecopymerge($dest, $src, $cen, $cen2, 0, 0, $w, $h, 80);
+		imagecopymerge($dest, $src, $cen, 0, 0, 0, $w, $h, 80);
 		
 		$white = imagecolorallocate($dest, 255, 255, 255);
 		$grey = imagecolorallocate($dest, 128, 128, 128);
 		$black = imagecolorallocate($dest, 0, 0, 0);
+		$yellow = imagecolorallocate($dest, 221, 255, 44);
+		$yellow2 = imagecolorallocate($dest, 209, 243, 41);
 		
-		$text = 'Lagu '.urldecode($title); //TITLE
+		if(isset($_GET['lagu'])){
+			$text = 'Lagu '.urldecode($title); //TITLE
+		}else{
+			$text = urldecode($title); //TITLE
+		}
 		
+		$text2 = urldecode($subtitle);
 		$font = base_path('public/assets/font/BackToBlackDemo-Z5mZ.ttf');
-		$size = "60";
+		$fon2 = base_path('public/assets/font/Dead Revolution.otf');
+		$size = 60;
+		$size2 = 20;
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$y = (1700 - ($box[1] - $box[7])) / 2; 
 		$y -= $box[7]; 
 		
 		$bbox = imagettfbbox($size, 0, $font, $text);
+		$bbox2 = imagettfbbox($size2, 0, $fon2, $text2);
 		$center1 = (imagesx($dest) / 2) - (($bbox[2] - $bbox[0]) / 2);
+		$center2 = (imagesx($dest) / 2) - (($bbox2[2] - $bbox2[0]) / 2);
 		
 		imagettftext(
 			$dest, 
 			$size, 
 			0, 
 			$center1, // margin left
-			$y, // margin top
+			$h/1.3, // margin top
 			$black, 
 			$font, 
 			$text);
+		imagettftext(
+			$dest, 
+			$size, 
+			0, 
+			$center1+3, // margin left
+			($h/1.3)+3, // margin top
+			$yellow, 
+			$font, 
+			$text);
+		
+		imagettftext(
+			$dest, 
+			$size2, 
+			0, 
+			$center2, // margin left
+			$h/1.06, // margin top
+			$black, 
+			$fon2, 
+			$text2);
+		
+		imagettftext(
+			$dest, 
+			$size2, 
+			0, 
+			$center2+3, // margin left
+			($h/1.06)+3, // margin top
+			$yellow2, 
+			$fon2, 
+			$text2);
 		
 		
 		$size = [
@@ -338,6 +397,50 @@ class HomeController extends Controller
 	}
 	
 	public function search($q)
+	{
+		header('Content-Type: application/json');
+		$respon = [];
+		$data = [];
+		$day = 1;
+		
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$ch = curl_init(); 
+			$url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=$q&type=video&key=".env('YOUTUBE_API_KEY');
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			$output = curl_exec($ch); 
+			curl_close($ch);      
+			if ($output === FALSE) {
+				echo json_encode($respon,TRUE);die;
+			}
+			
+			$op = json_decode($output);
+			if(count((array)$op->items)>0){
+				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
+					foreach($op->items as $result){
+						$ddetail['duration']	= '';
+						
+						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+							// continue;
+						}
+						$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
+						$ddetail['vid'] 		= $result->id->videoId;
+						$ddetail['oriDesc']		= '';
+						
+						$ddetail['img']			= @$result->snippet->thumbnails->high->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]) : '';
+						$data[] = $ddetail;
+					}
+					
+					return $data;	
+				 });
+			}
+		}	
+		echo json_encode($respon,TRUE);
+	}
+	
+	public function xxsearch($q)
 	{
 		
 		header('Content-Type: application/json');
