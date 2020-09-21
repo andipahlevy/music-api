@@ -70,35 +70,43 @@ class HomeController extends Controller
 		$get = file_get_contents('C:\xampp\htdocs\mp3-maudi\app\data.json');
 		$M = json_decode($get);
 		
-		$this->generate_desc($M->app_name, $M->playlist_id, $M->app_id);
+		// $this->generate_desc($M->app_name, $M->playlist_id, $M->app_id);
 		$this->generate_banner($M->app_name, $M->app_id);
-		$this->generate_ss($M->app_id);
-		// $this->generate_icon($M->app_name);
+		// $this->generate_ss($M->app_id);
 	}
 	
 	public function generate_desc($appName, $id, $app_id)
 	{
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
-		$file = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\DESC.txt";
+		$file = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\DESC.html";
 		$file = str_replace(' ','',$file);
-		$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang trending di aplikasi ini. Audio yang disediakan juga lengkap loh. \r\n\r\nKelebihan aplikasi ini: \r\n- Aplikasi ringan dan irit kuota\r\n- MP3 bisa di dengarkan secara offline\r\n- Ada fitur pencarian MP3, jika kamu mau mencari MP3 lainnya\r\n- Bisa memutar acak dan mengulangi MP3
-		\r\n\r\nDalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.\r\n\r\n";
+		$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang
+		trending di aplikasi ini. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
+		<br/>✔️ Aplikasi ringan dan irit kuota<br/>✔️ MP3 bisa di dengarkan secara offline<br/>✔️ Ada fitur pencarian MP3,
+		jika kamu mau mencari MP3 lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3
+		<br/><br/>Dalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
 		$limit = 9;
+		$arr_tit = [];
 		foreach($video['results'] as $k=>$result){
 			$tit = $this->replace($result->snippet->title);
 			if($tit == 'DELETED '){
 				$limit++;
 				continue;
 			}
-			$cont .= $tit."\r\n";
+			if(!in_array($tit, $arr_tit)){
+				echo $tit.'<br>';
+				$cont .= '💛 '.$tit."<br/>";
+			}
+			$arr_tit[] = $tit;
+			
 			if($k==$limit){
 				break;
 			}
 		}
-		$cont .= $tit."\r\nDan Masih banyak MP3 lainnya.\r\n";
-		$cont .= "\r\nDi aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan MP3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
+		$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
+		$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan MP3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
 		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
-		$cont .= "\r\n\r\nDisclaimer: \r\nIni adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+		$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		file_put_contents($file, $cont, LOCK_EX);
 	}
 	
@@ -119,25 +127,25 @@ class HomeController extends Controller
 		$image_1 = imagecreatefrompng(base_path("public/assets/images/bannerBg.png"));
 		$image_4 = imagecreatefrompng(base_path('public/assets/generated/logo512.png'));
 		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
+		$image_6 = imagecreatefrompng(base_path('public/assets/images/ps.png'));
+		$myBG = "C:\ xampp\ htdocs\ mp3-maudi\ KEYSTORE\ $app_id\ bg.jpg";
+		
+		$image_7 = imagecreatefromjpeg(str_replace(' ','',$myBG));
 		$image_3 = imagecreatefrompng($capture[0]);
 		imagealphablending($image_1, true);
 		imagesavealpha($image_1, true);
 		
-		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+		list($w, $h) = getimagesize(str_replace(' ','',$myBG));
 		$x = (imagesx($image_1)/3) - ($w/2);
 		$y = (imagesx($image_1)/4) - ($h/2);
-		imagecopy($image_1, $image_2, $x-450, $y, 0, 0, $w, $h);
-		
-		list($w, $h) = getimagesize($capture[0]);
-		$x = (imagesx($image_1)/3) - ($w/2);
-		$y = (imagesx($image_1)/4) - ($h/2);
-		imagecopy($image_1, $image_3, $x-450, $y+50, 0, 0, $w, $h);
+		imagecopymerge($image_1, $image_7, $x+2990, 0, 0, 0, $w, $h, 20);
 		
 		
-		$text = "$appName"; //TITLE
+		$text = explode('-',$appName)[0]; //TITLE
+		$text2 = "Download di Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$black = imagecolorallocate($image_1, 0, 0, 0);
-		$font = base_path('public/assets/font/BackToBlackDemo-Z5mZ.ttf');
+		$font = base_path('public/assets/font/Degtan-PersonalUse.otf');
 		$size = "200";
 		$box = imageftbbox( $size, 0, $font, $text ); 
 		$x = (410 - ($box[2] - $box[0])) / 2; 
@@ -147,14 +155,15 @@ class HomeController extends Controller
 		$fontwidth = 50;
 		
 		$center = (imagesx($image_1)/2) - ($fontwidth*(strlen($text)/2));
+		$y = (imagesy($image_1)/2) - 300;
 		
 		imagettftext(
 			$image_1, 
 			$size, 
 			0, 
-			$center+0, // margin left
-			$y+600, // margin top
-			$black, 
+			$center-100, // margin left
+			$y+200, // margin top
+			$white, 
 			$font, 
 			$text);
 			
@@ -162,11 +171,29 @@ class HomeController extends Controller
 			$image_1, 
 			$size, 
 			0, 
-			$center+10, // margin left
-			$y+610, // margin top
-			$white, 
+			$center-100, // margin left
+			$y+450, // margin top
+			$black, 
 			$font, 
-			$text);
+			$text2);
+			
+		
+		
+		list($w, $h) = getimagesize(base_path('public/assets/images/ps.png'));
+		imagecopy($image_1, $image_6, $center-100, $y+500, 0, 0, $w, $h);
+		
+		
+		
+		list($w, $h) = getimagesize(base_path('public/assets/images/phone.png'));
+		$x = (imagesx($image_1)/3) - ($w/2);
+		$y = (imagesx($image_1)/4) - ($h/2);
+		imagecopy($image_1, $image_2, $center-1500, $y, 0, 0, $w, $h);
+		
+		list($w, $h) = getimagesize($capture[0]);
+		$x = (imagesx($image_1)/3) - ($w/2);
+		$y = (imagesx($image_1)/4) - ($h/2);
+		imagecopy($image_1, $image_3, $center-1450, $y+50, 0, 0, $w, $h);
+		
 		
 		imagepng($image_1, base_path("public/assets/playstore/banner.png"));
 		
@@ -204,6 +231,13 @@ class HomeController extends Controller
 			closedir($handle);
 		}
 		
+		$caption = [
+			"Fitur Utama Aplikasi",
+			"Daftar Playlist Kamu",
+			"Pemutar Lagu Yang Keren",
+			"Cari Lagu Apapun Disini",
+		];
+		
 		foreach($capture as $k=>$cap){
 		
 			$image_1 = imagecreatefromjpeg(base_path("public/assets/images/bg$k.jpg"));
@@ -222,9 +256,40 @@ class HomeController extends Controller
 			$cen2 = (imagesx($image_1)/0.95) - ($h/2);
 			imagecopy($image_1, $image_3, $cen, $cen2, 0, 0, $w, $h);
 			
+			$text = $caption[$k]; 
+			$white = imagecolorallocate($image_1, 255, 255, 255);
+			$black = imagecolorallocate($image_1, 0, 0, 0);
+			$font = base_path('public/assets/font/arlrdbd.ttf');
+			$size = "60";
+			
+			$bbox = imagettfbbox($size, 0, $font, $text);
+			$center = (imagesx($image_1) / 2) - (($bbox[2] - $bbox[0]) / 2);
+			$top = (imagesy($image_1))-(imagesy($image_1)/1.06);
+			
+			imagettftext(
+				$image_1, 
+				$size, 
+				0, 
+				$center+0, // margin left
+				$top+0, // margin top
+				$black, 
+				$font, 
+				$text);
+				
+			imagettftext(
+				$image_1, 
+				$size, 
+				0, 
+				$center+2, // margin left
+				$top+2, // margin top
+				$white, 
+				$font, 
+				$text);
+			
 			$deskuy = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\capture_$k.jpg";
 			$deskuy = str_replace(' ','',$deskuy);
 			imagejpeg($image_1, $deskuy);
+			// break;
 		}
 	}
 	
@@ -574,13 +639,61 @@ class HomeController extends Controller
 
 	function replace($str)
 	{
-		$a = ['VIDEO','LYRIC','LYRICS','LIRIK','CLIP','KLIP'];
-		$b = ['','','','','',''];
-		$text = str_replace($a, $b, strtoupper($str));
+		$a = [
+			'MV',
+			'Mv',
+			'mv',
+			'M/V',
+			'm/v',
+			'VIDEO',
+			'Video',
+			'video',
+			'LYRIC',
+			'Lyric',
+			'lyric',
+			'LYRICS',
+			'Lyrics',
+			'lyrics',
+			'LIRIK',
+			'Lirik',
+			'lirik',
+			'CLIP',
+			'Clip',
+			'clip',
+			'KLIP',
+			'Klip',
+			'klip',
+		];
+		$b = [
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+			'',
+		];
+		$text = str_replace($a, $b, ($str));
 		
-		$tmp = ucwords(strtolower($text));
-		$a = ['( ',' )','()','  '];
-		$b = ['(',')','',' '];
-		return $text = str_replace($a, $b, strtoupper($tmp));
+		$tmp = (($text));
+		$a = ['( ',' )','()','  ','[]'];
+		$b = ['(',')','',' ',''];
+		return $text = str_replace($a, $b, ($tmp));
 	}
 }
