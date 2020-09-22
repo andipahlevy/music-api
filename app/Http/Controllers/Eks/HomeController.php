@@ -61,49 +61,9 @@ class HomeController extends Controller
 		file_put_contents($file, $cont, LOCK_EX);
 	}
 	
-	public function post_gdrive()
-	{
-		$client = new Google_Client();
-		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
-		$client->addScope("https://www.googleapis.com/auth/drive");
-		$service = new Google_Service_Drive($client);
-		$cekToken = file_get_contents(base_path("public/gdrive_auth/token.json"));
-		$token = json_decode($cekToken);
-		if($token){
-			try{
-				$client->setAccessToken($token->access_token);
-				$client->getAccessToken();
-		 
-				$file = new Google_Service_Drive_DriveFile();
-				$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
-				$file->setName($_FILES["fileToUpload"]["name"]);
-				$result = $service->files->create($file, array(
-					'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
-					'mimeType' => 'application/octet-stream',
-					'uploadType' => 'multipart'));
-				
-				$permissionService = new Google_Service_Drive_Permission();
-				$permissionService->role = "reader";
-				$permissionService->type = "anyone"; // anyone with the link can view the file
-				$service->permissions->create($result->id, $permissionService);
-
-				echo json_encode([
-					'file_name' => $result->name,
-					'file_id' => $result->id,
-				]);	
-			}
-			catch (\Exception $e) {
-				$msg = json_decode($e->getMessage());
-				if($msg->error){
-					echo 'ADA ERR-> '.$msg->error->message;
-				}
-			}
-		}
-		
-	}
-	
 	public function post_gdrive(Request $req)
 	{
+		// dd($req->all());
 		$client = new Google_Client();
 		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
 		$client->addScope("https://www.googleapis.com/auth/drive");
@@ -111,13 +71,14 @@ class HomeController extends Controller
 		$cekToken = file_get_contents(base_path("public/gdrive_auth/token.json"));
 		$token = json_decode($cekToken);
 		if($token){
-			try{
+			// try{
 				$client->setAccessToken($token->access_token);
 				$client->getAccessToken();
 		 
 				$file = new Google_Service_Drive_DriveFile();
 				$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
-				$file->setName($_FILES["fileToUpload"]["name"]);
+				// $file->setName($_FILES["fileToUpload"]["name"]);
+				$file->setName($req->fileName);
 				$result = $service->files->create($file, array(
 					// 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
 					'data' => file_get_contents($req->filePath),
@@ -133,13 +94,13 @@ class HomeController extends Controller
 					'file_name' => $result->name,
 					'file_id' => $result->id,
 				]);	
-			}
-			catch (\Exception $e) {
-				$msg = json_decode($e->getMessage());
-				if($msg->error){
-					echo 'ADA ERR-> '.$msg->error->message;
-				}
-			}
+			// }
+			// catch (\Exception $e) {
+				// $msg = json_decode($e->getMessage());
+				// if($msg->error){
+					// echo 'ADA ERR-> '.$msg->error->message;
+				// }
+			// }
 		}
 		
 	}
