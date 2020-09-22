@@ -95,7 +95,7 @@ class HomeController extends Controller
 			catch (\Exception $e) {
 				$msg = json_decode($e->getMessage());
 				if($msg->error){
-					echo $msg->error->message;
+					echo 'ADA ERR-> '.$msg->error->message;
 				}
 			}
 		}
