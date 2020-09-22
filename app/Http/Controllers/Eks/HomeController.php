@@ -98,7 +98,7 @@ class HomeController extends Controller
 		if(isset($results['files'])){
 			$rsp['code'] = 1;
 			foreach($results['files'] as $file){
-				$rsp['contents'][] = ['id'=>$file['id'],'name'=>$file['name']];
+				$rsp['contents'][$file['name']] = ['id'=>$file['id'],'name'=>$file['name']];
 			}
 		}
 		return $rsp['contents'];
