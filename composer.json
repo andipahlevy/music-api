@@ -10,6 +10,7 @@
         "fabpot/goutte": "^4.0",
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^6.5",
+        "illuminate/mail": "^5.8",
         "laravel/lumen-framework": "5.8.*",
         "laravel/tinker": "^1.0"
     },

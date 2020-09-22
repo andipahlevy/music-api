@@ -35,6 +35,10 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'upload_cek', 'uses' => 'HomeController@post_gdrive_cek'
 	]);	
 	
+	$router->get('/send_mail', [
+		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
+	]);	
+	
 	
 	/*START GENERATE PLAYSTORE ASSET*/	
 	$router->get('/generate_icon/{title}/{subtitle}', [
