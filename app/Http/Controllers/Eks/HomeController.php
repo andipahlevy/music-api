@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Artisan;
 use Youtube;
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
-
+use Google_Client;
+use Google_Service_Drive;
+use Google_Service_Drive_DriveFile;
+use Google_Service_Drive_Permission;
 
 class HomeController extends Controller
 {
@@ -17,11 +20,87 @@ class HomeController extends Controller
     public function __construct(Request $req)
     {
 		if($req->header('token') != env('TOKENKU')){
-			header('Content-Type: application/json');
-			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			die;
+			// header('Content-Type: application/json');
+			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			// die;
 		}
     }
+	
+	public function gdrive()
+	{
+		$client = new Google_Client();
+		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
+		$client->addScope("https://www.googleapis.com/auth/drive");
+		$file = base_path("public/gdrive_auth/token.json");
+		if (isset($_GET['code'])) {
+			$this->gDriveToken($_GET['code']);
+		}
+		$cekToken = file_get_contents(base_path("public/gdrive_auth/token.json"));
+		$token = json_decode($cekToken);
+		if(!isset($token->error) && $token !== null){
+			echo '<h1>Upload to GDrive</h1>
+			<form method="post" enctype="multipart/form-data" action="upload">
+				Pilih File:
+				  <input type="file" name="fileToUpload" id="fileToUpload">
+				  <input type="submit" value="Upload File" name="submit">     
+			</form>';
+		}else{
+			$authUrl = $client->createAuthUrl();
+			return redirect($authUrl);
+		}
+	}
+	
+	public function gDriveToken($code)
+	{
+		$client = new Google_Client();
+		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
+		$client->addScope("https://www.googleapis.com/auth/drive");
+		$file = base_path("public/gdrive_auth/token.json");
+		$token = $client->fetchAccessTokenWithAuthCode($code);
+		$cont = json_encode($token);
+		file_put_contents($file, $cont, LOCK_EX);
+	}
+	
+	public function post_gdrive()
+	{
+		$client = new Google_Client();
+		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
+		$client->addScope("https://www.googleapis.com/auth/drive");
+		$service = new Google_Service_Drive($client);
+		$cekToken = file_get_contents(base_path("public/gdrive_auth/token.json"));
+		$token = json_decode($cekToken);
+		if($token){
+			try{
+				$client->setAccessToken($token->access_token);
+				$client->getAccessToken();
+		 
+				$file = new Google_Service_Drive_DriveFile();
+				$file->setParents(["1naQ3a2p9NF7XdbHmRtYHEn1k-vBK_u4r"]);
+				$file->setName($_FILES["fileToUpload"]["name"]);
+				$result = $service->files->create($file, array(
+					'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
+					'mimeType' => 'application/octet-stream',
+					'uploadType' => 'multipart'));
+				
+				$permissionService = new Google_Service_Drive_Permission();
+				$permissionService->role = "reader";
+				$permissionService->type = "anyone"; // anyone with the link can view the file
+				$service->permissions->create($result->id, $permissionService);
+
+				echo json_encode([
+					'file_name' => $result->name,
+					'file_id' => $result->id,
+				]);	
+			}
+			catch (\Exception $e) {
+				$msg = json_decode($e->getMessage());
+				if($msg->error){
+					echo $msg->error->message;
+				}
+			}
+		}
+		
+	}
 	
 	public function myapp()
 	{
@@ -70,9 +149,9 @@ class HomeController extends Controller
 		$get = file_get_contents('C:\xampp\htdocs\mp3-maudi\app\data.json');
 		$M = json_decode($get);
 		
-		// $this->generate_desc($M->app_name, $M->playlist_id, $M->app_id);
+		$this->generate_desc($M->app_name, $M->playlist_id, $M->app_id);
 		$this->generate_banner($M->app_name, $M->app_id);
-		// $this->generate_ss($M->app_id);
+		$this->generate_ss($M->app_id);
 	}
 	
 	public function generate_desc($appName, $id, $app_id)

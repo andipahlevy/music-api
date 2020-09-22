@@ -23,6 +23,14 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
 	]);	
 	
+	$router->get('/gdrive', [
+		'as' => 'gdrive', 'uses' => 'HomeController@gdrive'
+	]);	
+	
+	$router->post('/upload', [
+		'as' => 'upload', 'uses' => 'HomeController@post_gdrive'
+	]);	
+	
 	
 	/*START GENERATE PLAYSTORE ASSET*/	
 	$router->get('/generate_icon/{title}/{subtitle}', [
