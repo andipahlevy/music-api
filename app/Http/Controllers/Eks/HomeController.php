@@ -13,6 +13,7 @@ use Google_Client;
 use Google_Service_Drive;
 use Google_Service_Drive_DriveFile;
 use Google_Service_Drive_Permission;
+use Google_Service_Books;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
@@ -26,6 +27,33 @@ class HomeController extends Controller
 			// die;
 		}
     }
+	
+	public function gdrive_find(Request $req)
+	{
+		$client = $this->getClient()[1];
+		if(!$this->getClient()[0]){
+			$this->send_mail();
+			die;
+		}
+		$service = new Google_Service_Drive($client);
+		$file = new Google_Service_Drive_DriveFile();
+		$optParams = array(
+			'q' => "name = '{$req->q}'",
+			'spaces' => "drive",
+			'fields' => 'nextPageToken, files(id, name)'
+		);
+		$rsp = [];
+		$rsp['code'] = 0;
+		$results = $service->files->listFiles($optParams);
+		if(isset($results['files'])){
+			if($results['files']){
+				$rsp['code'] = 1;
+				$rsp['contents'] = ['id'=>$results['files'][0]['id'],'name'=>$results['files'][0]['name']];
+			}
+		}
+		header('Content-Type: application/json');
+		echo json_encode($rsp);
+	}
 	
 	public function send_mail()
 	{

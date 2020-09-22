@@ -35,6 +35,10 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'upload_cek', 'uses' => 'HomeController@post_gdrive_cek'
 	]);	
 	
+	$router->post('/gdrive_find/', [
+		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
+	]);	
+	
 	$router->get('/send_mail', [
 		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
 	]);	
