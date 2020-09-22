@@ -63,7 +63,7 @@ class HomeController extends Controller
 	
 	public function post_gdrive(Request $req)
 	{
-		// dd($req->all());
+		header('Content-Type: application/json');
 		$client = new Google_Client();
 		$client->setAuthConfig(base_path("public/gdrive_auth/oauth-credentials.json"));
 		$client->addScope("https://www.googleapis.com/auth/drive");
@@ -71,7 +71,7 @@ class HomeController extends Controller
 		$cekToken = file_get_contents(base_path("public/gdrive_auth/token.json"));
 		$token = json_decode($cekToken);
 		if($token){
-			// try{
+			try{
 				$client->setAccessToken($token->access_token);
 				$client->getAccessToken();
 		 
@@ -94,13 +94,13 @@ class HomeController extends Controller
 					'file_name' => $result->name,
 					'file_id' => $result->id,
 				]);	
-			// }
-			// catch (\Exception $e) {
-				// $msg = json_decode($e->getMessage());
-				// if($msg->error){
-					// echo 'ADA ERR-> '.$msg->error->message;
-				// }
-			// }
+			}
+			catch (\Exception $e) {
+				$msg = json_decode($e->getMessage());
+				if($msg->error){
+					echo 'ADA ERR-> '.$msg->error->message;
+				}
+			}
 		}
 		
 	}
