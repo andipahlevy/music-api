@@ -75,7 +75,7 @@ class HomeController extends Controller
 				$client->getAccessToken();
 		 
 				$file = new Google_Service_Drive_DriveFile();
-				$file->setParents(["1naQ3a2p9NF7XdbHmRtYHEn1k-vBK_u4r"]);
+				$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
 				$file->setName($_FILES["fileToUpload"]["name"]);
 				$result = $service->files->create($file, array(
 					'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
