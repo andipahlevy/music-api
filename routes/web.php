@@ -39,6 +39,10 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
 	]);	
 	
+	$router->post('/gdrive_list_by_folder/', [
+		'as' => 'gdrive_list_by_folder', 'uses' => 'HomeController@gdrive_list_by_folder'
+	]);	
+	
 	$router->get('/send_mail', [
 		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
 	]);	
