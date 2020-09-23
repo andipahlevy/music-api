@@ -187,49 +187,6 @@ class HomeController extends Controller
 		
 		return [true, $client];
 	}
-	
-	public function post_gdrive_cek(Request $req){
-		$client = $this->getClient()[1];
-		if(!$this->getClient()[0]){
-			return redirect($this->getClient()[1]);
-			die;
-		}
-		$service = new Google_Service_Drive($client);
-		try{
-			
-			$file = new Google_Service_Drive_DriveFile();
-			$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$createdFolder['id']]);
-			$file->setName($_FILES["fileToUpload"]["name"]);
-			// $file->setName($req->fileName);
-			$result = $service->files->create($file, array(
-				'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
-				// 'data' => file_get_contents($req->filePath),
-				'mimeType' => 'application/octet-stream',
-				'uploadType' => 'multipart'));
-			
-			$permissionService = new Google_Service_Drive_Permission();
-			$permissionService->role = "reader";
-			$permissionService->type = "anyone"; // anyone with the link can view the file
-			$service->permissions->create($result->id, $permissionService);
-
-			echo json_encode([
-				'file_name' => $result->name,
-				'file_id' => $result->id,
-			]);	
-		}
-		catch (\Exception $e) {
-			$msg = json_decode($e->getMessage());
-			if($msg->error){
-				echo 'ADA ERR->'.$msg->error->code.' '.$msg->error->message;
-				if($msg->error->code==401){
-					
-				}
-			}
-		}
-		
-		
-	}
-	
 	public function post_gdrive(Request $req)
 	{
 		$client = $this->getClient()[1];
@@ -254,7 +211,9 @@ class HomeController extends Controller
 			$permissionService->role = "reader";
 			$permissionService->type = "anyone"; // anyone with the link can view the file
 			$service->permissions->create($result->id, $permissionService);
-
+			
+			\File::delete($req->filePath);
+			
 			echo json_encode([
 				'file_name' => $result->name,
 				'file_id' => $result->id,
