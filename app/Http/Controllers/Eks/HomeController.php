@@ -55,21 +55,29 @@ class HomeController extends Controller
 		$results = $service->files->listFiles($optParams);
 		
 		if(isset($results['files'])){
-			if($results['files']){
+			if($req->type == 'folder'){
+				if($results['files']){
+					$rsp['code'] = 1;
+					$rsp['contents'] = [
+						'id'=>$results['files'][0]['id'],
+						'name'=>$results['files'][0]['name'],
+						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
+					];
+				}else{
+					$folder = new Google_Service_Drive_DriveFile();
+					$folder->setName($req->name);
+					$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
+					$folder->setMimeType('application/vnd.google-apps.folder');
+					$createdFolder = $service->files->create($folder);
+					$rsp['code'] = 2;
+					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
+				}
+			}else{
 				$rsp['code'] = 1;
 				$rsp['contents'] = [
 					'id'=>$results['files'][0]['id'],
 					'name'=>$results['files'][0]['name'],
-					'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
 				];
-			}else{
-				$folder = new Google_Service_Drive_DriveFile();
-				$folder->setName($req->name);
-				$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
-				$folder->setMimeType('application/vnd.google-apps.folder');
-				$createdFolder = $service->files->create($folder);
-				$rsp['code'] = 2;
-				$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
 			}
 		}
 		header('Content-Type: application/json');
