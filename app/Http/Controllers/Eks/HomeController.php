@@ -246,16 +246,13 @@ class HomeController extends Controller
 		}
 		$service = new Google_Service_Drive($client);
 		try{
-			$client->setAccessToken($token->access_token);
-			$client->getAccessToken();
-			
+		
 			$folder = new Google_Service_Drive_DriveFile();
 			$folder->setName('videv.nama.mp3');
+			$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
 			$folder->setMimeType('application/vnd.google-apps.folder');
 			
-			$createdFolder = $service->files->create($folder);
-			
-			dd($createdFolder);
+			$createdFolder = $service->files->create($folder);			
 			
 			$file = new Google_Service_Drive_DriveFile();
 			$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
@@ -280,7 +277,10 @@ class HomeController extends Controller
 		catch (\Exception $e) {
 			$msg = json_decode($e->getMessage());
 			if($msg->error){
-				echo 'ADA ERR-> '.$msg->error->message;
+				echo 'ADA ERR->'.$msg->error->code.' '.$msg->error->message;
+				if($msg->error->code==401){
+					
+				}
 			}
 		}
 	}
