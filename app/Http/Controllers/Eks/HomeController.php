@@ -109,7 +109,7 @@ class HomeController extends Controller
 		if(isset($results['files'])){
 			$rsp['code'] = 1;
 			foreach($results['files'] as $file){
-				$rsp['contents'][] = ['id'=>$file['id'],'name'=>$file['name']];
+				$rsp['contents'][] = ['download_url'=>'https://drive.google.com/uc?export=download&id='.$file['id'],'name'=>$file['name']];
 			}
 		}
 		return $rsp['contents'];
