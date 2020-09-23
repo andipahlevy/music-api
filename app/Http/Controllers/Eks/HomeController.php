@@ -37,10 +37,10 @@ class HomeController extends Controller
 			die;
 		}
 		if($req->type == 'folder'){
-			$q = "name = '{$req->name}' and mimeType = 'application/vnd.google-apps.folder'";
+			$q = "name = '{$req->name}' and mimeType = 'application/vnd.google-apps.folder' and trashed=false";
 			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"];
 		}else{
-			$q = "name = '{$req->name}' and mimeType contains 'audio'";
+			$q = "name = '{$req->name}' and mimeType contains 'audio' and trashed=false";
 			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$req->folder];
 		}
 		$service = new Google_Service_Drive($client);
@@ -98,7 +98,7 @@ class HomeController extends Controller
 		$file = new Google_Service_Drive_DriveFile();
 		$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$folderId]);
 		$optParams = array(
-			'q'		 => "mimeType contains 'audio'",
+			'q'		 => "'$folderId' in parents and trashed=false",
 			'spaces' => "drive",
 			'fields' => 'nextPageToken, files(id, name)'
 		);
