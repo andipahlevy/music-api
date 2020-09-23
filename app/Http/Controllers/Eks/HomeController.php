@@ -73,11 +73,13 @@ class HomeController extends Controller
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
 				}
 			}else{
-				$rsp['code'] = 1;
-				$rsp['contents'] = [
-					'id'=>$results['files'][0]['id'],
-					'name'=>$results['files'][0]['name'],
-				];
+				if($results['files']){
+					$rsp['code'] = 1;
+					$rsp['contents'] = [
+						'id'=>$results['files'][0]['id'],
+						'name'=>$results['files'][0]['name'],
+					];
+				}				
 			}
 		}
 		header('Content-Type: application/json');
