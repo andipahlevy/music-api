@@ -224,9 +224,7 @@ class HomeController extends Controller
 			$msg = json_decode($e->getMessage());
 			if($msg->error){
 				echo 'ADA ERR->'.$msg->error->code.' '.$msg->error->message;
-				if($msg->error->code==401){
-					
-				}
+				\Log::error('ADA ERR->'.$msg->error->code.' '.$msg->error->message);
 			}
 		}
 	}
