@@ -197,13 +197,6 @@ class HomeController extends Controller
 		$service = new Google_Service_Drive($client);
 		try{
 			
-			$folder = new Google_Service_Drive_DriveFile();
-			$folder->setName('videv.nama.mp3');
-			$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
-			$folder->setMimeType('application/vnd.google-apps.folder');
-			
-			$createdFolder = $service->files->create($folder);
-			
 			$file = new Google_Service_Drive_DriveFile();
 			$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$createdFolder['id']]);
 			$file->setName($_FILES["fileToUpload"]["name"]);
@@ -245,14 +238,7 @@ class HomeController extends Controller
 			die;
 		}
 		$service = new Google_Service_Drive($client);
-		try{
-		
-			$folder = new Google_Service_Drive_DriveFile();
-			$folder->setName('videv.nama.mp3');
-			$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
-			$folder->setMimeType('application/vnd.google-apps.folder');
-			
-			$createdFolder = $service->files->create($folder);			
+		try{		
 			
 			$file = new Google_Service_Drive_DriveFile();
 			$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
