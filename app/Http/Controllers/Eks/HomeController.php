@@ -213,7 +213,7 @@ class HomeController extends Controller
 			$permissionService->type = "anyone"; // anyone with the link can view the file
 			$service->permissions->create($result->id, $permissionService);
 			
-			File::delete($req->filePath);
+			// File::delete($req->filePath);
 			
 			echo json_encode([
 				'file_name' => $result->name,
