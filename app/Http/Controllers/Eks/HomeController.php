@@ -106,7 +106,6 @@ class HomeController extends Controller
 		$rsp['code'] = 0;
 		$rsp['contents'] = [];
 		$results = $service->files->listFiles($optParams);
-		// echo json_encode([count($results['files'])]);die;
 		if(isset($results['files'])){
 			$rsp['code'] = 1;
 			foreach($results['files'] as $file){
