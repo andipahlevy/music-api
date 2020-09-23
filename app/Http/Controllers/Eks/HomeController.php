@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Youtube;
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
@@ -212,7 +213,7 @@ class HomeController extends Controller
 			$permissionService->type = "anyone"; // anyone with the link can view the file
 			$service->permissions->create($result->id, $permissionService);
 			
-			\File::delete($req->filePath);
+			File::delete($req->filePath);
 			
 			echo json_encode([
 				'file_name' => $result->name,
