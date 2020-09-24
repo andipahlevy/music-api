@@ -636,7 +636,7 @@ class HomeController extends Controller
 		}else{
 			$video = Youtube::getPlaylistItemsByPlaylistId($q);
 			
-			echo json_encode($video['results']);die;
+			// echo json_encode($video['results']);die;
 			
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
