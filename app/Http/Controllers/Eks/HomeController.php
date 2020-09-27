@@ -41,7 +41,7 @@ class HomeController extends Controller
 			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"];
 		}else{
 			$q = "name = '{$req->name}' and mimeType contains 'audio' and trashed=false";
-			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$req->folder];
+			$parents = [$req->folder];
 		}
 		$service = new Google_Service_Drive($client);
 		$file = new Google_Service_Drive_DriveFile();
@@ -96,7 +96,7 @@ class HomeController extends Controller
 		}
 		$service = new Google_Service_Drive($client);
 		$file = new Google_Service_Drive_DriveFile();
-		$file->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF",$folderId]);
+		$file->setParents([$folderId]);
 		$optParams = array(
 			'q'		 => "'$folderId' in parents and mimeType contains 'audio' and trashed=false",
 			'spaces' => "drive",
