@@ -310,7 +310,7 @@ class HomeController extends Controller
 			}
 		}
 		$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
-		$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan MP3 $appName yang mungkin tidak ada di playlist. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
+		$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
 		// file_put_contents($file, $cont, FILE_APPEND | LOCK_EX);
 		$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		file_put_contents($file, $cont, LOCK_EX);
@@ -630,7 +630,7 @@ class HomeController extends Controller
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
-		$day = 1;
+		$day = 7;
 		if (Cache::has($q)){
 			$respon['contents'] = Cache::get($q);
 		}else{
@@ -672,7 +672,7 @@ class HomeController extends Controller
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
-		$day = 1;
+		$day = 7;
 		
 		if (Cache::has($q)){
 			$respon['contents'] = Cache::get($q);
