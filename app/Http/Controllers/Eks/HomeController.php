@@ -221,8 +221,8 @@ class HomeController extends Controller
 			]);	
 		}
 		catch (\Exception $e) {
-			$msg = json_decode($e->getMessage());
-			\Log::error($msg);
+			// $msg = json_decode($e->getMessage());
+			\Log::error($e->getMessage());
 			// if($msg->error){
 				// echo 'ADA ERR->'.$msg->error->code.' '.$msg->error->message;
 				// \Log::error('ADA ERR->'.$msg->error->code.' '.$msg->error->message);
