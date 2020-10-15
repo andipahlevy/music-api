@@ -12,7 +12,7 @@
 	ceck version //return $router->app->version();
 */
 
-$router->group(['namespace' => 'Eks'], function() use ($router)
+$router->group(['namespace' => 'Eks','middleware' => 'CorsMiddleware'], function() use ($router)
 {
     
 	$router->get('/search/{q}', [
