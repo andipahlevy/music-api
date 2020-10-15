@@ -29,7 +29,7 @@ class HomeController extends Controller
 		}
     }
 	
-	public function gdrive_find2(Request $req)
+	public function gdrive_find(Request $req)
 	{
 		$client = $this->getClient()[1];
 		if(!$this->getClient()[0]){

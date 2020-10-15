@@ -12,7 +12,7 @@
 	ceck version //return $router->app->version();
 */
 
-$router->group(['namespace' => 'Eks','middleware' => 'CorsMiddleware'], function() use ($router)
+$router->group(['namespace' => 'Eks'], function() use ($router)
 {
     
 	$router->get('/search/{q}', [
@@ -35,12 +35,8 @@ $router->group(['namespace' => 'Eks','middleware' => 'CorsMiddleware'], function
 		'as' => 'upload_cek', 'uses' => 'HomeController@post_gdrive_cek'
 	]);	
 	
-	$router->post('/gdrive_find/', [
+	$router->get('/gdrive_find/', [
 		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
-	]);	
-	
-	$router->post('/gdrive_find2/', [
-		'as' => 'gdrive_find2', 'uses' => 'HomeController@gdrive_find2'
 	]);	
 	
 	$router->post('/gdrive_list_by_folder/', [

@@ -69,10 +69,6 @@ if (!class_exists('Youtube')) {
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
-$app->middleware([
-   'CorsMiddleware' => App\Http\Middleware\CorsMiddleware::class
-]);
-
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
