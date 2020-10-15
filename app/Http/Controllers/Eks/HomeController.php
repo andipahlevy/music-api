@@ -91,6 +91,64 @@ class HomeController extends Controller
 		echo json_encode($rsp);
 	}
 	
+	public function gdrive_find2(Request $req)
+	{
+		$client = $this->getClient()[1];
+		if(!$this->getClient()[0]){
+			$this->send_mail();
+			die;
+		}
+		if($req->type == 'folder'){
+			$q = "name = '{$req->name}' and mimeType = 'application/vnd.google-apps.folder' and trashed=false";
+			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"];
+		}else{
+			$q = "name = '{$req->name}' and mimeType contains 'audio' and trashed=false";
+			$parents = [$req->folder];
+		}
+		$service = new Google_Service_Drive($client);
+		$file = new Google_Service_Drive_DriveFile();
+		$file->setParents($parents);
+		$optParams = array(
+			'q' => $q,
+			'spaces' => "drive",
+			'fields' => 'nextPageToken, files(id, name)'
+		);
+		$rsp = [];
+		$rsp['code'] = 0;
+		$results = $service->files->listFiles($optParams);
+		
+		if(isset($results['files'])){
+			if($req->type == 'folder'){
+				if($results['files']){
+					$rsp['code'] = 1;
+					$rsp['contents'] = [
+						'id'=>$results['files'][0]['id'],
+						'name'=>$results['files'][0]['name'],
+						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
+					];
+				}else{
+					$folder = new Google_Service_Drive_DriveFile();
+					$folder->setName($req->name);
+					$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
+					$folder->setMimeType('application/vnd.google-apps.folder');
+					$createdFolder = $service->files->create($folder);
+					$rsp['code'] = 2;
+					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
+				}
+			}else{
+				if($results['files']){
+					$rsp['code'] = 1;
+					$rsp['contents'] = [
+						'id'=>$results['files'][0]['id'],
+						'name'=>$results['files'][0]['name'],
+					];
+				}				
+			}
+		}
+		header('Content-Type: application/json');
+		echo json_encode($rsp);
+	}
+	
 	public function gdrive_list_by_folder($folderId)
 	{
 		$client = $this->getClient()[1];
