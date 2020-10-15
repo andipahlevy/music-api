@@ -64,6 +64,8 @@ class HomeController extends Controller
 						'name'=>$results['files'][0]['name'],
 						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
 					];
+					\Log::info('Masuk A');
+					\Log::info($rsp);
 				}else{
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->name);
@@ -72,6 +74,8 @@ class HomeController extends Controller
 					$createdFolder = $service->files->create($folder);
 					$rsp['code'] = 2;
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
+					\Log::info('Masuk B');
+					\Log::info($rsp);
 				}
 			}else{
 				if($results['files']){
