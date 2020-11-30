@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Eks;
+namespace App\Http\Controllers\V2;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
@@ -38,7 +38,7 @@ class HomeController extends Controller
 		}
 		if($req->input('type') == 'folder'){
 			$q = "name = '{$req->input('name')}' and mimeType = 'application/vnd.google-apps.folder' and trashed=false";
-			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"];
+			$parents = ["0AJcO6d0iN8ynUk9PVA"];
 		}else{
 			$q = "name = '{$req->input('name')}' and mimeType contains 'audio' and trashed=false";
 			$parents = [$req->input('folder')];
@@ -49,12 +49,14 @@ class HomeController extends Controller
 		$optParams = array(
 			'q' => $q,
 			'spaces' => "drive",
-			'fields' => 'nextPageToken, files(id, name)'
+			'fields' => 'nextPageToken, files(id, name)',
+			'supportsAllDrives' => true ,
 		);
 		$rsp = [];
 		$rsp['code'] = 0;
 		$results = $service->files->listFiles($optParams);
-		
+		\Log::info('$results["files"]');
+		\Log::info($results['files']);
 		if(isset($results['files'])){
 			if($req->input('type') == 'folder'){
 				if($results['files']){
@@ -69,9 +71,11 @@ class HomeController extends Controller
 				}else{
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->input('name'));
-					$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
+					$folder->setParents(["0AJcO6d0iN8ynUk9PVA"]);
 					$folder->setMimeType('application/vnd.google-apps.folder');
-					$createdFolder = $service->files->create($folder);
+					$createdFolder = $service->files->create($folder, array(
+						'supportsAllDrives' => true 
+					));
 					$rsp['code'] = 2;
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->input('name')];
 					\Log::info('Masuk B');
@@ -100,7 +104,7 @@ class HomeController extends Controller
 		}
 		if($req->type == 'folder'){
 			$q = "name = '{$req->name}' and mimeType = 'application/vnd.google-apps.folder' and trashed=false";
-			$parents = ["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"];
+			$parents = ["0AJcO6d0iN8ynUk9PVA"];
 		}else{
 			$q = "name = '{$req->name}' and mimeType contains 'audio' and trashed=false";
 			$parents = [$req->folder];
@@ -129,9 +133,11 @@ class HomeController extends Controller
 				}else{
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->name);
-					$folder->setParents(["1niTIZygrK9EG0RBritmsPvJCMBy4FpCF"]);
+					$folder->setParents(["0AJcO6d0iN8ynUk9PVA"]);
 					$folder->setMimeType('application/vnd.google-apps.folder');
-					$createdFolder = $service->files->create($folder);
+					$createdFolder = $service->files->create($folder, array(
+						'supportsAllDrives' => true 
+					));
 					$rsp['code'] = 2;
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
 				}
@@ -265,57 +271,12 @@ class HomeController extends Controller
 			// $file->setName($_FILES["fileToUpload"]["name"]);
 			$file->setName($req->fileName);
 			$result = $service->files->create($file, array(
-				// 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
-				'data' => file_get_contents($req->filePath),
-				'mimeType' => 'application/octet-stream',
-				'uploadType' => 'multipart'));
-			
-			$permissionService = new Google_Service_Drive_Permission();
-			$permissionService->role = "reader";
-			$permissionService->type = "anyone"; // anyone with the link can view the file
-			$service->permissions->create($result->id, $permissionService);
-			
-			// File::delete($req->filePath);
-			
-			echo json_encode([
-				'file_name' => $result->name,
-				'file_id' => $result->id,
-			]);	
-		}
-		catch (\Exception $e) {
-		echo $e->getMessage();die;
-			// $msg = json_decode($e->getMessage());
-			\Log::error($e->getMessage());
-			// if($msg->error){
-				// echo 'ADA ERR->'.$msg->error->code.' '.$msg->error->message;
-				// \Log::error('ADA ERR->'.$msg->error->code.' '.$msg->error->message);
-			// }
-		}
-	}
-	
-	public function post_gdrive_unlimited(Request $req)
-	{
-		$client = $this->getClient()[1];
-		if(!$this->getClient()[0]){
-			$this->send_mail();
-			die;
-		}
-		$service = new Google_Service_Drive($client);
-		try{		
-			
-			$file = new Google_Service_Drive_DriveFile();
-			$file->setParents([$req->folder]);
-			// $file->setName($_FILES["fileToUpload"]["name"]);
-			$file->setName($req->fileName);
-			$result = $service->files->create($file, array(
-				// 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
+					// 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
 					'data' => file_get_contents($req->filePath),
 					'mimeType' => 'application/octet-stream',
 					'uploadType' => 'multipart',
 					'supportsAllDrives' => true ,
-					// 'parents' => ['1fxKhZbtmb3yWGGrox-HonNXcODPKoU7S'],
-				)
-			);
+			));
 			
 			$permissionService = new Google_Service_Drive_Permission();
 			$permissionService->role = "reader";
