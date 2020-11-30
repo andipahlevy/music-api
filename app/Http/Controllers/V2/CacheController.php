@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Eks;
+namespace App\Http\Controllers\V2;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
