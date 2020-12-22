@@ -44,19 +44,22 @@ class HomeController extends Controller
 			$parents = [$req->input('folder')];
 		}
 		$service = new Google_Service_Drive($client);
-		$file = new Google_Service_Drive_DriveFile();
-		$file->setParents($parents);
 		$optParams = array(
 			'q' => $q,
 			'spaces' => "drive",
+			// 'fields' => 'nextPageToken, files(id, name)',
 			'fields' => 'nextPageToken, files(id, name)',
 			'supportsAllDrives' => true ,
+			'corpora' => 'drive' ,
+			'driveId' => '0AJcO6d0iN8ynUk9PVA' ,
+			'includeItemsFromAllDrives' => true ,
 		);
 		$rsp = [];
 		$rsp['code'] = 0;
 		$results = $service->files->listFiles($optParams);
 		\Log::info('$results["files"]');
 		\Log::info($results['files']);
+		// print_r($results);die;
 		if(isset($results['files'])){
 			if($req->input('type') == 'folder'){
 				if($results['files']){
@@ -163,12 +166,14 @@ class HomeController extends Controller
 			die;
 		}
 		$service = new Google_Service_Drive($client);
-		$file = new Google_Service_Drive_DriveFile();
-		$file->setParents([$folderId]);
 		$optParams = array(
 			'q'		 => "'$folderId' in parents and mimeType contains 'audio' and trashed=false",
 			'spaces' => "drive",
-			'fields' => 'nextPageToken, files(id, name)'
+			'fields' => 'nextPageToken, files(id, name)',
+			'supportsAllDrives' => true ,
+			'corpora' => 'drive' ,
+			'driveId' => '0AJcO6d0iN8ynUk9PVA' ,
+			'includeItemsFromAllDrives' => true ,
 		);
 		$rsp = [];
 		$rsp['code'] = 0;
@@ -181,6 +186,7 @@ class HomeController extends Controller
 			}
 		}
 		return $rsp['contents'];
+		// return $folderId;
 	}
 	
 	public function send_mail()
