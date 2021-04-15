@@ -11,4 +11,5 @@ Homestead.yaml
 /public/gdrive_auth/token.json
 /public/txt
 /storage/logs/
-/public/txt/
+/public/tmp/
+/public/output
