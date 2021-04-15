@@ -283,6 +283,7 @@ class HomeController extends Controller
 			]);	
 		}
 		catch (\Exception $e) {
+		echo $e->getMessage();die;
 			// $msg = json_decode($e->getMessage());
 			\Log::error($e->getMessage());
 			// if($msg->error){

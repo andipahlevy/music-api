@@ -1,0 +1,715 @@
+[2020-11-30 12:54:00] local.ERROR: file_get_contents(/var/www/html/music/public/tmp/Q6PVVgeNxAw.mp3): failed to open stream: No such file or directory  
+[2020-11-30 12:57:12] local.ERROR: ErrorException: fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\Http\Controllers\Eks\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\Lumen\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\Lumen\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ at /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\\Http\\Controllers\\Eks\\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\\Lumen\\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\\Lumen\\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 12:57:14] local.INFO: Masuk A  
+[2020-11-30 12:57:14] local.INFO: array (
+  'code' => 1,
+  'contents' => 
+  array (
+    'id' => '1dgSTSKLRTUy8fA3eK25EUTvQpljnFWNn',
+    'name' => 'videv.dj_tapi_bohong_hayu_bale_bale.mp3',
+    'files' => 
+    array (
+      0 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1Jb-ML2pB4TJ06s1QbUqf4klZuzW5h13f',
+        'name' => 'WnpxKJS0qbk.mp3',
+      ),
+      1 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1EoC6HsHtKMR8hq-iUVc_Qcgx-GVp38Ed',
+        'name' => 'o_VLqRyddgc.mp3',
+      ),
+      2 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1lkfNTWSAy_vzwGGFYF-VIC3c8IAGRGcw',
+        'name' => 'STqQ8soaHU4.mp3',
+      ),
+      3 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=10qQqS0_iWoWmwkzYpldZ4m-s3n4cLGl2',
+        'name' => 'kqevbiXDRtM.mp3',
+      ),
+    ),
+  ),
+)  
+[2020-11-30 13:02:08] local.INFO: Masuk A  
+[2020-11-30 13:02:08] local.INFO: array (
+  'code' => 1,
+  'contents' => 
+  array (
+    'id' => '1dgSTSKLRTUy8fA3eK25EUTvQpljnFWNn',
+    'name' => 'videv.dj_tapi_bohong_hayu_bale_bale.mp3',
+    'files' => 
+    array (
+      0 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1Jb-ML2pB4TJ06s1QbUqf4klZuzW5h13f',
+        'name' => 'WnpxKJS0qbk.mp3',
+      ),
+      1 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1EoC6HsHtKMR8hq-iUVc_Qcgx-GVp38Ed',
+        'name' => 'o_VLqRyddgc.mp3',
+      ),
+      2 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1lkfNTWSAy_vzwGGFYF-VIC3c8IAGRGcw',
+        'name' => 'STqQ8soaHU4.mp3',
+      ),
+      3 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=10qQqS0_iWoWmwkzYpldZ4m-s3n4cLGl2',
+        'name' => 'kqevbiXDRtM.mp3',
+      ),
+    ),
+  ),
+)  
+[2020-11-30 13:02:25] local.ERROR: ErrorException: fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\Http\Controllers\Eks\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\Lumen\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\Lumen\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ at /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\\Http\\Controllers\\Eks\\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\\Lumen\\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\\Lumen\\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:16:07] local.INFO: Masuk B  
+[2020-11-30 13:16:07] local.INFO: array (
+  'code' => 2,
+  'contents' => 
+  array (
+    'id' => '1afRmlBziPSKSZVSrhhkmvrI6iEoAgIr8',
+    'name' => 'videv.wowwwwww.mp3',
+  ),
+)  
+[2020-11-30 13:23:32] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\Http\Controllers\V2\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\V2\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\\Http\\Controllers\\V2\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\V2\\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:23:37] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\Http\Controllers\V2\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\V2\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\\Http\\Controllers\\V2\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\V2\\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:23:40] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\Http\Controllers\V2\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\V2\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\\Http\\Controllers\\V2\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\V2\\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:24:21] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\Http\Controllers\V2\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\V2\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\\Http\\Controllers\\V2\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\V2\\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:24:51] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\Http\Controllers\V2\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\V2\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/V2/HomeController.php:254)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(254): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/V2/HomeController.php(261): App\\Http\\Controllers\\V2\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\V2\\HomeController->post_gdrive()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:14] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:17] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:38] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:39] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:40] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:25:42] local.ERROR: ErrorException: file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied in /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\Http\Controllers\Eks\HomeController->getClient()
+#3 [internal function]: App\Http\Controllers\Eks\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\Lumen\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): file_put_contents(/var/www/html/music/public/gdrive_auth/token.json): failed to open stream: Permission denied at /var/www/html/music/app/Http/Controllers/Eks/HomeController.php:248)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(248): file_put_contents()
+#2 /var/www/html/music/app/Http/Controllers/Eks/HomeController.php(96): App\\Http\\Controllers\\Eks\\HomeController->getClient()
+#3 [internal function]: App\\Http\\Controllers\\Eks\\HomeController->gdrive_find2()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#6 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#7 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(165): Laravel\\Lumen\\Application->handleFoundRoute()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
+[2020-11-30 13:30:26] local.INFO: Masuk A  
+[2020-11-30 13:30:26] local.INFO: array (
+  'code' => 1,
+  'contents' => 
+  array (
+    'id' => '1NQgdnxfSy9MpVNgCG_fZGa8FOaHXd0bv',
+    'name' => 'videv.dory_harsa_jodo_feat_nella_kharisma.mp3',
+    'files' => 
+    array (
+      0 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1LIuNaoFfE__mDDR13WeIY6K7QJJxBzqi',
+        'name' => 'WBnqReAF8nU.mp3',
+      ),
+      1 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1x1ga-T_FXSyZ4F-rB_PqbJpLlu7cZkj9',
+        'name' => 'ehUrVfWnMZU.mp3',
+      ),
+      2 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1O6Cngq8nOIzGdjdaHuJU62r9J_As3iEh',
+        'name' => 'sQ9rYhCvmo0.mp3',
+      ),
+      3 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1vV3rFk7lvjR-dKYGBaxlv-mcE2wRSDSn',
+        'name' => 'XqJGnMit1sI.mp3',
+      ),
+      4 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1DpRXXRo8mReQcPFG5AvRB-qxBTpavrji',
+        'name' => 'IPNHpontCho.mp3',
+      ),
+      5 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1QN-M0Kgjqd2YqcOYe2ybCIfTPstjbvHC',
+        'name' => 'UDaanWXrScw.mp3',
+      ),
+      6 => 
+      array (
+        'download_url' => 'https://drive.google.com/uc?export=download&id=1o4IQP7qzOynsGk0wulPUF9c6bfBz7kHH',
+        'name' => 'ZDCO16XyQgs.mp3',
+      ),
+    ),
+  ),
+)  
+[2020-11-30 13:48:53] local.ERROR: ErrorException: fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ in /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24
+Stack trace:
+#0 [internal function]: Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\Http\Controllers\Eks\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\Container\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\Container\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\Container\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\Lumen\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\Lumen\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\Lumen\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\Lumen\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\Lumen\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\Lumen\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\Lumen\Application->Laravel\Lumen\Concerns\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\Lumen\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\Lumen\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\Lumen\Application->run()
+#18 {main} {"exception":"[object] (ErrorException(code: 0): fopen(https://i.ytimg.com/vi/AMYVtt4ZZro/hqdefault.jpg): failed to open stream: HTTP request failed! HTTP/1.0 404 Not Found
+ at /var/www/html/music/app/Http/Controllers/Eks/CacheController.php:24)
+[stacktrace]
+#0 [internal function]: Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#1 /var/www/html/music/app/Http/Controllers/Eks/CacheController.php(24): fopen()
+#2 [internal function]: App\\Http\\Controllers\\Eks\\CacheController->alias()
+#3 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(32): call_user_func_array()
+#4 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#5 /var/www/html/music/vendor/illuminate/container/BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#6 /var/www/html/music/vendor/illuminate/container/Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#7 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(376): Illuminate\\Container\\Container->call()
+#8 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(342): Laravel\\Lumen\\Application->callControllerCallable()
+#9 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(316): Laravel\\Lumen\\Application->callLumenController()
+#10 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(278): Laravel\\Lumen\\Application->callControllerAction()
+#11 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(263): Laravel\\Lumen\\Application->callActionOnArrayBasedRoute()
+#12 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(233): Laravel\\Lumen\\Application->handleFoundRoute()
+#13 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(169): Laravel\\Lumen\\Application->handleDispatcherResponse()
+#14 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(416): Laravel\\Lumen\\Application->Laravel\\Lumen\\Concerns\\{closure}()
+#15 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(171): Laravel\\Lumen\\Application->sendThroughPipeline()
+#16 /var/www/html/music/vendor/laravel/lumen-framework/src/Concerns/RoutesRequests.php(108): Laravel\\Lumen\\Application->dispatch()
+#17 /var/www/html/music/public/index.php(28): Laravel\\Lumen\\Application->run()
+#18 {main}
+"} 
