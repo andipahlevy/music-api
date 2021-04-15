@@ -22,11 +22,11 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
-		if($req->header('token') != env('TOKENKU')){
-			header('Content-Type: application/json');
-			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
-			die;
-		}
+		// if($req->header('token') != env('TOKENKU')){
+			// header('Content-Type: application/json');
+			// echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
+			// die;
+		// }
     }
 	
 	public function gdrive_find(Request $req)
@@ -390,7 +390,7 @@ class HomeController extends Controller
 		
 		$this->generate_desc($M->app_name, $M->playlist_id, $M->app_id, $M->app_lang);
 		$this->generate_banner($M->app_name, $M->app_id);
-		$this->generate_ss($M->app_id);
+		$this->generate_ss($M->app_id, $M->app_lang);
 	}
 	
 	public function generate_desc($appName, $id, $app_id, $lang='id')
@@ -398,43 +398,68 @@ class HomeController extends Controller
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
 		$file = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\DESC.html";
 		$file = str_replace(' ','',$file);
-		if($lang=='id'){
-			$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang
-			trending di aplikasi ini. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
-			<br/>✔️ Aplikasi ringan dan irit kuota<br/>✔️ MP3 bisa di dengarkan secara offline<br/>✔️ Ada fitur pencarian MP3,
-			jika kamu mau mencari MP3 lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3
-			<br/><br/>Dalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
-		}else{
-			$cont = "Hello, for you fans of $appName, you can listen to MP3 $appName which is currently popular and trending using this application. The playlist is quite complete.. <br/><br/>Why choose this application? 
-			<br/>✔️ Light and efficient on data<br/>✔️ Offline feature<br/>✔️ There is an audio search feature, if you want to find another MP3<br/>✔️ Can random play and repeat MP3
-			<br/><br/>In this application there are several MP3 audio that you might be looking for, such as the list below.<br/><br/>";
+		if(1==1){
+			if($lang=='id'){
+				$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang
+				trending di aplikasi ini. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
+				<br/>✔️ Aplikasi ringan dan irit kuota<br/>✔️ MP3 bisa di dengarkan secara offline jika sudah pernah terputar<br/>✔️ Ada fitur pencarian MP3,
+				jika kamu mau mencari MP3 lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3
+				<br/><br/>Dalam aplikasi ini terdapat jutaan audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
+			}else{
+				$cont = "Hello, for you fans of $appName, you can listen to MP3 $appName which is currently popular and trending using this application. The playlist is quite complete.. <br/><br/>Why choose this application? 
+				<br/>✔️ Light and efficient on data<br/>✔️ Offline feature, after streaming<br/>✔️ There is an audio search feature, if you want to find another MP3<br/>✔️ Can random play and repeat MP3
+				<br/><br/>In this application there are millions MP3 audio that you might be looking for, such as the list below.<br/><br/>";
+			}
+		}
+		else{
+			$cont = "Free music player apps that plays what you like to hear. This app is all about making online music easy and fun - a free online music streaming service that allows you to create custom playlist. With advanced search features, you can find and choose your favorite song and this app will start playing music from that. This app has millions of ready-download songs with genre like Hip Hop, Rock, Country or Classical and themes like Hits from the 80’s, Christmas Classics or Today’s top 100. The songs you've played will be available in offline. 
+<br/><br/>
+Is this application free? 
+Yes! This app delivers unlimited music for free !
+<br/><br/>
+Download and Play Offline free CC licensed mp3 music, Free Music Downloader is the powerful and simple app to search, listen and download copyleft music! Feel free to download free mp3 music and audio files.
+<br/><br/>
+
+FEATURES:<br/>
+✔️ Very fast!<br/>
+✔️ Easy to Find, Listen to and Download.<br/>
+✔️ Great data set, more than a million high quality mp3 tracks. One of the biggest free mp3 music storage.<br/>
+✔️ Search music by title, artist, genre or album.<br/>
+✔️ Download high sound quality mp3 fastest and play mp3 music online or offline.<br/>
+✔️ You will find music for any tastes and of any kind with our app.<br/>
+✔️ Save to your device for Play Offline.<br/><br/>
+
+Notice:<br/>
+This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for content hosted by third parties and are not involved in downloading / uploading. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you own the copyright of the content, please report it to adelw93us@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use.";
 		}
 		$limit = 9;
 		$arr_tit = [];
-		foreach($video['results'] as $k=>$result){
-			$tit = $this->replace($result->snippet->title);
-			if($tit == 'DELETED '){
-				$limit++;
-				continue;
+		if(1==1){
+			foreach($video['results'] as $k=>$result){
+				$tit = $this->replace($result->snippet->title);
+				if($tit == 'DELETED '){
+					$limit++;
+					continue;
+				}
+				if(!in_array($tit, $arr_tit)){
+					echo $tit.'<br>';
+					$cont .= '💛 '.$tit."<br/>";
+				}
+				$arr_tit[] = $tit;
+				
+				if($k==$limit){
+					break;
+				}
 			}
-			if(!in_array($tit, $arr_tit)){
-				echo $tit.'<br>';
-				$cont .= '💛 '.$tit."<br/>";
+			if($lang=='id'){
+				$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
+				$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
+				$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+			}else{
+				$cont .= "<br/>And many others.<br/>";
+				$cont .= "<br/>In this MP3 player application, you can use the search feature to find and add audio that may not be in your playlist. Hope you guys are entertained with this application. All features are free, you just need to rate this application to support the developer, if you like.";
+				$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to adelw93us@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
 			}
-			$arr_tit[] = $tit;
-			
-			if($k==$limit){
-				break;
-			}
-		}
-		if($lang=='id'){
-			$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
-			$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
-			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
-		}else{
-			$cont .= "<br/>And many others.<br/>";
-			$cont .= "<br/>In this MP3 player application, you can use the search feature to find and add audio that may not be in your playlist. Hope you guys are entertained with this application. All features are free, you just need to rate this application to support the developer, if you like.";
-			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to adelw93us@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
 		}
 		file_put_contents($file, $cont, LOCK_EX);
 	}
@@ -471,7 +496,7 @@ class HomeController extends Controller
 		
 		
 		$text = explode('-',$appName)[0]; //TITLE
-		$text2 = "Download di Playstore"; //TITLE
+		$text2 = "Download at Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$black = imagecolorallocate($image_1, 0, 0, 0);
 		$font = base_path('public/assets/font/Degtan-PersonalUse.otf');
@@ -545,7 +570,7 @@ class HomeController extends Controller
 		imagepng($thumb, $o);
 	}
 	
-	public function generate_ss($app_id)
+	public function generate_ss($app_id, $lang='id')
 	{
 		$capture = [];
 		if ($handle = opendir(base_path('public/assets/capture/'))) {
@@ -560,12 +585,21 @@ class HomeController extends Controller
 			closedir($handle);
 		}
 		
-		$caption = [
-			"Fitur Utama Aplikasi",
-			"Daftar Playlist Kamu",
-			"Pemutar Lagu Yang Keren",
-			"Cari Lagu Apapun Disini",
-		];
+		if($lang=='id'){
+			$caption = [
+				"Fitur Utama Aplikasi",
+				"Daftar Playlist Kamu",
+				"Pemutar Lagu Yang Keren",
+				"Cari Lagu Apapun Disini",
+			];
+		}else{
+			$caption = [
+				"Main Features",
+				"Playlist",
+				"Cool Music Player",
+				"Find Your Song",
+			];
+		}
 		
 		foreach($capture as $k=>$cap){
 		
