@@ -10,3 +10,5 @@ Homestead.yaml
 /public/theme/travel doc
 /public/gdrive_auth/token.json
 /public/txt
+/storage/logs/
+/public/txt/

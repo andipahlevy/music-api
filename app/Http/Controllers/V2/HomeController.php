@@ -118,15 +118,22 @@ class HomeController extends Controller
 		$optParams = array(
 			'q' => $q,
 			'spaces' => "drive",
-			'fields' => 'nextPageToken, files(id, name)'
+			// 'fields' => 'nextPageToken, files(id, name)',
+			'fields' => 'nextPageToken, files(id, name)',
+			'supportsAllDrives' => true ,
+			'corpora' => 'drive' ,
+			'driveId' => '0AJcO6d0iN8ynUk9PVA' ,
+			'includeItemsFromAllDrives' => true ,
 		);
 		$rsp = [];
 		$rsp['code'] = 0;
 		$results = $service->files->listFiles($optParams);
-		
+		\Log::info('kuy ni');
+		\Log::info(json_encode($results));
 		if(isset($results['files'])){
 			if($req->type == 'folder'){
 				if($results['files']){
+					\Log::info('A');
 					$rsp['code'] = 1;
 					$rsp['contents'] = [
 						'id'=>$results['files'][0]['id'],
@@ -134,6 +141,7 @@ class HomeController extends Controller
 						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
 					];
 				}else{
+					\Log::info('B');
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->name);
 					$folder->setParents(["0AJcO6d0iN8ynUk9PVA"]);
@@ -145,7 +153,9 @@ class HomeController extends Controller
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
 				}
 			}else{
+				\Log::info('C');
 				if($results['files']){
+					\Log::info('D');
 					$rsp['code'] = 1;
 					$rsp['contents'] = [
 						'id'=>$results['files'][0]['id'],
@@ -779,6 +789,9 @@ class HomeController extends Controller
 			}
 			
 			$op = json_decode($output);
+			\Log::info('$op');
+			\Log::info(json_encode($op));
+			\Log::info($url);
 			if(count((array)$op->items)>0){
 				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
 					foreach($op->items as $result){
