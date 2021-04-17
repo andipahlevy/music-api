@@ -22,6 +22,8 @@ class HomeController extends Controller
 	
     public function __construct(Request $req)
     {
+		$this->key2 = 'AIzaSyBEbvqE5IXkGwlP515NQFGDzupWfW_xtNA';
+		$this->key3 = 'AIzaSyC3YT1yWTE_XCVGAzEw2BH0jSp92UnnInI';
 		if($req->header('token') != env('TOKENKU')){
 			header('Content-Type: application/json');
 			echo json_encode(['code' => '401', 'contents' => 'Invalid token']);
@@ -57,8 +59,8 @@ class HomeController extends Controller
 		$rsp = [];
 		$rsp['code'] = 0;
 		$results = $service->files->listFiles($optParams);
-		\Log::info('$results["files"]');
-		\Log::info($results['files']);
+		// \Log::info('$results["files"]');
+		// \Log::info($results['files']);
 		// print_r($results);die;
 		if(isset($results['files'])){
 			if($req->input('type') == 'folder'){
@@ -69,8 +71,8 @@ class HomeController extends Controller
 						'name'=>$results['files'][0]['name'],
 						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
 					];
-					\Log::info('Masuk A');
-					\Log::info($rsp);
+					// \Log::info('Masuk A');
+					// \Log::info($rsp);
 				}else{
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->input('name'));
@@ -81,8 +83,8 @@ class HomeController extends Controller
 					));
 					$rsp['code'] = 2;
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->input('name')];
-					\Log::info('Masuk B');
-					\Log::info($rsp);
+					// \Log::info('Masuk B');
+					// \Log::info($rsp);
 				}
 			}else{
 				if($results['files']){
@@ -128,12 +130,12 @@ class HomeController extends Controller
 		$rsp = [];
 		$rsp['code'] = 0;
 		$results = $service->files->listFiles($optParams);
-		\Log::info('kuy ni');
-		\Log::info(json_encode($results));
+		// \Log::info('kuy ni');
+		// \Log::info(json_encode($results));
 		if(isset($results['files'])){
 			if($req->type == 'folder'){
 				if($results['files']){
-					\Log::info('A');
+					// \Log::info('A');
 					$rsp['code'] = 1;
 					$rsp['contents'] = [
 						'id'=>$results['files'][0]['id'],
@@ -141,7 +143,7 @@ class HomeController extends Controller
 						'files'=>$this->gdrive_list_by_folder($results['files'][0]['id'])
 					];
 				}else{
-					\Log::info('B');
+					// \Log::info('B');
 					$folder = new Google_Service_Drive_DriveFile();
 					$folder->setName($req->name);
 					$folder->setParents(["0AJcO6d0iN8ynUk9PVA"]);
@@ -153,9 +155,9 @@ class HomeController extends Controller
 					$rsp['contents'] = ['id'=>$createdFolder['id'],'name'=>$req->name];
 				}
 			}else{
-				\Log::info('C');
+				// \Log::info('C');
 				if($results['files']){
-					\Log::info('D');
+					// \Log::info('D');
 					$rsp['code'] = 1;
 					$rsp['contents'] = [
 						'id'=>$results['files'][0]['id'],
@@ -735,10 +737,31 @@ class HomeController extends Controller
 		if (Cache::has($q)){
 			$respon['contents'] = Cache::get($q);
 		}else{
-			$video = Youtube::getPlaylistItemsByPlaylistId($q);
+			$video = [];
+		  try{	
+			$video = Youtube::
+				// setApiKey('AIzaSyC0CwcHEkQIEVw0w_DAmt-WzSyNGoXVmo8')->
+				getPlaylistItemsByPlaylistId($q);
+		  }
+		  catch (\Exception $e) {
+			  $msg = $e->getMessage();
+			  if( \Illuminate\Support\Str::contains($msg, ['exceeded'])){
+				  try{
+					$video = Youtube::setApiKey($this->key2)->getPlaylistItemsByPlaylistId($q);
+				  }catch (\Exception $e) {
+					  $msg = $e->getMessage();
+					  if( \Illuminate\Support\Str::contains($msg, ['exceeded'])){
+						  try{
+							$video = Youtube::setApiKey($this->key3)->getPlaylistItemsByPlaylistId($q);
+						  }catch (\Exception $e) {
+							  $video = [];
+						  }	
+					  }
+				  }	
+			  }
+		  }
 			
-			// echo json_encode($video['results']);die;
-			
+		  if($video){
 			$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($video) {
 				foreach($video['results'] as $result){
 					if(@$result->snippet->thumbnails->high->url == ''){
@@ -761,6 +784,7 @@ class HomeController extends Controller
 				
 				return $data;	
 			 });
+		  } 
 		}
 		
 		echo json_encode($respon
@@ -778,41 +802,68 @@ class HomeController extends Controller
 		if (Cache::has($q)){
 			$respon['contents'] = Cache::get($q);
 		}else{
-			$ch = curl_init(); 
-			$url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=$q&type=video&key=".env('YOUTUBE_API_KEY');
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-			$output = curl_exec($ch); 
-			curl_close($ch);      
+			$key= env('YOUTUBE_API_KEY');
+			
+			$output = $this->curlSearch($q, $key);
 			if ($output === FALSE) {
 				echo json_encode($respon,TRUE);die;
 			}
-			
 			$op = json_decode($output);
-			\Log::info('$op');
-			\Log::info(json_encode($op));
-			\Log::info($url);
-			if(count((array)$op->items)>0){
-				$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
-					foreach($op->items as $result){
-						$ddetail['duration']	= '';
-						
-						if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
-							// continue;
-						}
-						$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
-						$ddetail['vid'] 		= $result->id->videoId;
-						$ddetail['oriDesc']		= '';
-						
-						$ddetail['img']			= @$result->snippet->thumbnails->high->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]) : '';
-						$data[] = $ddetail;
+			
+			if(isset($op->error->message)){
+				if( \Illuminate\Support\Str::contains($op->error->message, ['exceeded']) ){
+					$key= $this->key2;
+					$output = $this->curlSearch($q, $key);
+					if ($output === FALSE) {
+						echo json_encode($respon,TRUE);die;
 					}
+					$op = json_decode($output);
 					
-					return $data;	
-				 });
+					if(isset($op->error->message)){
+						if( \Illuminate\Support\Str::contains($op->error->message, ['exceeded']) ){
+							$key= $this->key3;
+							$output = $this->curlSearch($q, $key);
+							if ($output === FALSE) {
+								echo json_encode($respon,TRUE);die;
+							}
+							$op = json_decode($output);
+						}
+					}
+				}
 			}
+			if(isset($op->items)){
+				if(count((array)$op->items)>0){
+					$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
+						foreach($op->items as $result){
+							$ddetail['duration']	= '';
+							
+							if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+								// continue;
+							}
+							$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
+							$ddetail['vid'] 		= $result->id->videoId;
+							$ddetail['oriDesc']		= '';
+							
+							$ddetail['img']			= @$result->snippet->thumbnails->high->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]) : '';
+							$data[] = $ddetail;
+						}
+						
+						return $data;	
+					 });
+				}
+			}	
 		}	
 		echo json_encode($respon,TRUE);
+	}
+	
+	public function curlSearch($q, $key){
+		$ch = curl_init(); 
+		$url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=$q&type=video&key=$key";
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+		$output = curl_exec($ch); 
+		curl_close($ch);      
+		return $output;
 	}
 	
 	public function xxsearch($q)
