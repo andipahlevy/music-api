@@ -12,3 +12,4 @@ Homestead.yaml
 /storage/logs
 /public/tmp
 /public/output
+/public/youtube_key.json
