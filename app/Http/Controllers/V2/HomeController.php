@@ -792,7 +792,82 @@ class HomeController extends Controller
 		);
 	}
 	
-	public function search($q)
+	public function search($q, $stop = false)
+	{
+		$f = file_get_contents(base_path('public').'/youtube_key.json');
+		$mKey = json_decode($f);
+		header('Content-Type: application/json');
+		$respon = [];
+		$data = [];
+		$day = 7;
+		
+		\Log::info($mKey->current);
+		
+		if($mKey->current < 0){
+			echo json_encode($respon,TRUE);die;
+		}
+		
+		if (Cache::has($q)){
+			$respon['contents'] = Cache::get($q);
+		}else{
+			$key= $mKey->key[$mKey->current];
+			
+			$output = $this->curlSearch($q, $key);
+			if ($output === FALSE) {
+				echo json_encode($respon,TRUE);die;
+			}
+			$op = json_decode($output);
+			
+			if(isset($op->error->message)){
+				if( \Illuminate\Support\Str::contains($op->error->message, ['exceeded']) ){
+					if ( ((int)$mKey->current+1) == count($mKey->key)) {
+						$mKey->current = 0;
+						$tx = (string) json_encode($mKey, TRUE);
+						$file = fopen(base_path('public').'/youtube_key.json',"w");
+						fwrite($file,$tx);
+						fclose($file);
+						
+						$this->search($q,true);
+					}else{
+						if($stop){
+							echo json_encode($respon,TRUE);die;
+						}
+						$mKey->current = $mKey->current+1;
+						$tx = (string) json_encode($mKey, TRUE);
+						$file = fopen(base_path('public').'/youtube_key.json',"w");
+						fwrite($file,$tx);
+						fclose($file);
+						
+						$this->search($q);
+					}
+				}
+			}
+			if(isset($op->items)){
+				if(count((array)$op->items)>0){
+					$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
+						foreach($op->items as $result){
+							$ddetail['duration']	= '';
+							
+							if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
+								// continue;
+							}
+							$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
+							$ddetail['vid'] 		= $result->id->videoId;
+							$ddetail['oriDesc']		= '';
+							
+							$ddetail['img']			= @$result->snippet->thumbnails->high->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]) : '';
+							$data[] = $ddetail;
+						}
+						
+						return $data;	
+					 });
+				}
+			}	
+		}	
+		echo json_encode($respon,TRUE);
+	}
+	
+	public function xxx_search($q)
 	{
 		header('Content-Type: application/json');
 		$respon = [];
