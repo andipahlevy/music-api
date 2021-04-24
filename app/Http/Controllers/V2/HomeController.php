@@ -794,22 +794,24 @@ class HomeController extends Controller
 	
 	public function search($q, $stop = false)
 	{
-		$f = file_get_contents(base_path('public').'/youtube_key.json');
-		$mKey = json_decode($f);
+		
 		header('Content-Type: application/json');
 		$respon = [];
 		$data = [];
 		$day = 7;
 		
-		\Log::info($mKey->current);
-		
-		if($mKey->current < 0){
-			echo json_encode($respon,TRUE);die;
-		}
-		
 		if (Cache::has($q)){
 			$respon['contents'] = Cache::get($q);
 		}else{
+			$f = file_get_contents(base_path('public').'/youtube_key.json');
+			$mKey = json_decode($f);
+			
+			// \Log::info($mKey->current);
+		
+			if($mKey->current < 0){
+				echo json_encode($respon,TRUE);die;
+			}
+			
 			$key= $mKey->key[$mKey->current];
 			
 			$output = $this->curlSearch($q, $key);
