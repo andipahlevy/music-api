@@ -847,14 +847,10 @@ class HomeController extends Controller
 				if(count((array)$op->items)>0){
 					$respon['contents'] = Cache::remember($q, (60*(24*$day)), function () use($op) {
 						foreach($op->items as $result){
-							$ddetail['duration']	= '';
-							
-							if(strlen($ddetail['duration']) > 4 || strlen($ddetail['duration']) < 1){
-								// continue;
-							}
-							$ddetail['title'] 		= base64_encode(htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES));
 							$ddetail['vid'] 		= $result->id->videoId;
-							$ddetail['oriDesc']		= '';
+							$ddetail['title'] 		= htmlspecialchars_decode($this->replace($result->snippet->title), ENT_QUOTES);
+							$ddetail['url'] 		= 'http://216.158.233.15:8889/yt-convert?id='.$ddetail['vid'].'&video_url=https://www.youtube.com/watch?v='.$ddetail['vid'].'&title='.$ddetail['title'].'&folder=0AJcO6d0iN8ynUk9PVA';
+							
 							
 							$ddetail['img']			= @$result->snippet->thumbnails->high->url ? route('alias',['url'=>base64_encode($result->snippet->thumbnails->high->url)]) : '';
 							$data[] = $ddetail;
