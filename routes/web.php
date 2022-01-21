@@ -11,6 +11,9 @@
 |
 	ceck version //return $router->app->version();
 */
+$router->get('/', function(){
+	echo 'Website is under construction. Contact me <a href="mailto:andilevi@gmail.com">Email</a>';die;
+});
 
 $router->group(['namespace' => 'Eks'], function() use ($router)
 {
@@ -202,6 +205,9 @@ $router->group(['prefix' => 'v3','namespace' => 'V3'], function() use ($router)
 	]);
 	$router->get('/generate_desc', [
 		'as' => 'generate_desc', 'uses' => 'HomeController@generate_desc'
+	]);
+	$router->get('/generate_desc_java', [
+		'as' => 'generate_desc_java', 'uses' => 'HomeController@generate_desc_java'
 	]);
 	$router->get('/generate_all', [
 		'as' => 'generate_all', 'uses' => 'HomeController@generate_all'

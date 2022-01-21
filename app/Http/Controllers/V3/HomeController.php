@@ -419,8 +419,61 @@ class HomeController extends Controller
 		file_put_contents($file, $cont, LOCK_EX);
 	}
 	
-	public function generate_banner($appName, $app_id)
+	public function generate_desc_java()
 	{
+		$appName 	= $_GET['appname']; 
+		$id 		= $_GET['yuid']; 
+		$app_id 	= $_GET['appid'];
+		$lang		= $_GET['lang'];
+		
+		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
+		$file = "C:\ xampp\htdocs\apk\KEYSTORE\ $app_id\DESC.html";
+		$file = str_replace(' ','',$file);
+		if($lang=='id'){
+			$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang
+			trending di aplikasi ini. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
+			<br/>✔️ Aplikasi ringan dan irit kuota<br/>✔️ MP3 bisa di dengarkan secara offline<br/>✔️ Ada fitur pencarian MP3,
+			jika kamu mau mencari MP3 lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3
+			<br/><br/>Dalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
+		}else{
+			$cont = "Hello, for you fans of $appName, you can listen to MP3 $appName which is currently popular and trending using this application. The playlist is quite complete.. <br/><br/>Why choose this application? 
+			<br/>✔️ Light and efficient on data<br/>✔️ Offline feature<br/>✔️ There is an audio search feature, if you want to find another MP3<br/>✔️ Can random play and repeat MP3<br/>✔️ Equalizer Features<br/>✔️ Timer Features<br/>✔️ Favorite and Custom Playlist
+			<br/><br/>In this application there are several MP3 audio that you might be looking for, such as the list below.<br/><br/>";
+		}
+		$limit = 9;
+		$arr_tit = [];
+		foreach($video['results'] as $k=>$result){
+			$tit = $this->replace($result->snippet->title);
+			if($tit == 'DELETED '){
+				$limit++;
+				continue;
+			}
+			if(!in_array($tit, $arr_tit)){
+				echo $tit.'<br>';
+				$cont .= '💛 '.$tit."<br/>";
+			}
+			$arr_tit[] = $tit;
+			
+			if($k==$limit){
+				break;
+			}
+		}
+		if($lang=='id'){
+			$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
+			$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
+			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+		}else{
+			$cont .= "<br/>And many others.<br/>";
+			$cont .= "<br/>In this MP3 player application, you can use the search feature to find and add audio that may not be in your playlist. Hope you guys are entertained with this application. All features are free, you just need to rate this application to support the developer, if you like.";
+			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to adelw93us@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
+		}
+		file_put_contents($file, $cont, LOCK_EX);
+	}
+	
+	public function generate_banner()
+	{
+		$appName= $_GET['appName']; 
+		$app_id = $_GET['appId'];
 		$capture = [];
 		if ($handle = opendir(base_path('public/assets/capture/'))) {
 
@@ -437,7 +490,7 @@ class HomeController extends Controller
 		$image_4 = imagecreatefrompng(base_path('public/assets/generated/logo512.png'));
 		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
 		$image_6 = imagecreatefrompng(base_path('public/assets/images/ps.png'));
-		$myBG = "C:\ xampp\ htdocs\ mp3-maudi\ KEYSTORE\ $app_id\ bg.jpg";
+		$myBG = "C:\ xampp\ htdocs\ apk\ KEYSTORE\ $app_id\ bg.jpg";
 		
 		$image_7 = imagecreatefromjpeg(str_replace(' ','',$myBG));
 		$image_3 = imagecreatefrompng($capture[0]);
@@ -451,7 +504,7 @@ class HomeController extends Controller
 		
 		
 		$text = explode('-',$appName)[0]; //TITLE
-		$text2 = "Download di Playstore"; //TITLE
+		$text2 = "Download at Playstore"; //TITLE
 		$white = imagecolorallocate($image_1, 255, 255, 255);
 		$black = imagecolorallocate($image_1, 0, 0, 0);
 		$font = base_path('public/assets/font/Degtan-PersonalUse.otf');
@@ -508,7 +561,7 @@ class HomeController extends Controller
 		
 		//resize to playstore format
 		// $this->resizeImage(2598,2598,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_2598.png")	);
-		$deskuy = "C:\ xampp\htdocs\mp3-maudi\KEYSTORE\ $app_id\banner_1024.png";
+		$deskuy = "C:\ xampp\htdocs\apk\KEYSTORE\ $app_id\banner_1024.png";
 		$deskuy = str_replace(' ','',$deskuy);
 		$this->resizeImage(1024,500,base_path("public/assets/playstore/banner.png"),$deskuy);
 		
