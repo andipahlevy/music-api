@@ -427,16 +427,16 @@ class HomeController extends Controller
 		$lang		= $_GET['lang'];
 		
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
-		$file = "C:\ xampp\htdocs\apk\KEYSTORE\ $app_id\DESC.html";
+		$file = "C:\ xampp\htdocs\apk\KEYSTORE\ ".$app_id."\DESC.html";
 		$file = str_replace(' ','',$file);
 		if($lang=='id'){
-			$cont = "Halo guys. Buat kalian penggemar $appName, kalian bisa mendengarkan MP3 $appName yang populer dan sedang
-			trending di aplikasi ini. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
+			$cont = "Halo. Selamat Datang di aplikasi $appName. Di aplikasi ini, kalian bisa mendengarkan lagu/audio $appName yang populer dan sedang
+			trending. Audio yang disediakan juga lengkap loh. <br/><br/>Kelebihan aplikasi ini: 
 			<br/>✔️ Aplikasi ringan dan irit kuota<br/>✔️ MP3 bisa di dengarkan secara offline<br/>✔️ Ada fitur pencarian MP3,
-			jika kamu mau mencari MP3 lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3
-			<br/><br/>Dalam aplikasi ini terdapat audio MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
+			jika kamu mau mencari lagu/audio lainnya<br/>✔️ Bisa memutar acak dan mengulangi MP3<br/>✔️ Ada fitur Equalizer<br/>✔️ Ada fitur timer<br/>✔️ Serta fitur list audio favorit dan kalian bisa membuat playlist sendiri
+			<br/><br/>Dalam aplikasi ini sudah terdapat audio atau MP3 hits yang mungkin kalian cari seperti daftar di bawah ini.<br/><br/>";
 		}else{
-			$cont = "Hello, for you fans of $appName, you can listen to MP3 $appName which is currently popular and trending using this application. The playlist is quite complete.. <br/><br/>Why choose this application? 
+			$cont = "Hello, welcome to the $appName app. You can listen to MP3 $appName which is currently popular and trending using this application. The playlist is quite complete.. <br/><br/>Why choose this application? 
 			<br/>✔️ Light and efficient on data<br/>✔️ Offline feature<br/>✔️ There is an audio search feature, if you want to find another MP3<br/>✔️ Can random play and repeat MP3<br/>✔️ Equalizer Features<br/>✔️ Timer Features<br/>✔️ Favorite and Custom Playlist
 			<br/><br/>In this application there are several MP3 audio that you might be looking for, such as the list below.<br/><br/>";
 		}
@@ -459,13 +459,13 @@ class HomeController extends Controller
 			}
 		}
 		if($lang=='id'){
-			$cont .= "<br/>Dan Masih banyak MP3 lainnya.<br/>";
+			$cont .= "<br/>Dan Masih banyak audio lainnya.<br/>";
 			$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
-			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke adelw93us@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke email pengembang di everydaymusicapp@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		}else{
 			$cont .= "<br/>And many others.<br/>";
 			$cont .= "<br/>In this MP3 player application, you can use the search feature to find and add audio that may not be in your playlist. Hope you guys are entertained with this application. All features are free, you just need to rate this application to support the developer, if you like.";
-			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to adelw93us@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
+			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to everydaymusicapp@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
 		}
 		file_put_contents($file, $cont, LOCK_EX);
 	}
