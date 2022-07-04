@@ -115,16 +115,14 @@ class HomeController extends Controller
 			$parents = [$req->folder];
 		}
 		$service = new Google_Service_Drive($client);
-		$file = new Google_Service_Drive_DriveFile();
-		$file->setParents($parents);
 		$optParams = array(
 			'q' => $q,
 			'spaces' => "drive",
 			// 'fields' => 'nextPageToken, files(id, name)',
 			'fields' => 'nextPageToken, files(id, name)',
 			'supportsAllDrives' => true ,
-			'corpora' => 'drive' ,
-			'driveId' => '0AJcO6d0iN8ynUk9PVA' ,
+			// 'corpora' => 'drive' ,
+			// 'driveId' => $req->folder ,
 			'includeItemsFromAllDrives' => true ,
 		);
 		$rsp = [];
@@ -285,12 +283,12 @@ class HomeController extends Controller
 		try{		
 			
 			$file = new Google_Service_Drive_DriveFile();
-			// $file->setParents([$req->folder]);
+			$file->setParents(array(array('id'=>$req->folder)));
 			// $file->setName($_FILES["fileToUpload"]["name"]);
 			$file->setName($req->fileName);
 			$result = $service->files->create($file, array(
-					// 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
-					'data' => file_get_contents($req->filePath),
+					'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
+					// 'data' => file_get_contents($req->filePath),
 					'mimeType' => 'application/octet-stream',
 					'uploadType' => 'multipart',
 					'supportsAllDrives' => true ,
