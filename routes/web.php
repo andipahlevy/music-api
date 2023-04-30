@@ -17,45 +17,45 @@ $router->get('/', function(){
 
 $router->group(['namespace' => 'Eks'], function() use ($router)
 {
-    
+
 	$router->get('/search/{q}', [
 		'as' => 'search', 'uses' => 'HomeController@search'
 	]);
-	
+
 	$router->get('/playlist/{q}', [
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive', [
 		'as' => 'gdrive', 'uses' => 'HomeController@gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/upload', [
 		'as' => 'upload', 'uses' => 'HomeController@post_gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/post_gdrive_unlimited', [
 		'as' => 'post_gdrive_unlimited', 'uses' => 'HomeController@post_gdrive_unlimited'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive_find/', [
 		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_find2/', [
 		'as' => 'gdrive_find2', 'uses' => 'HomeController@gdrive_find2'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_list_by_folder/', [
 		'as' => 'gdrive_list_by_folder', 'uses' => 'HomeController@gdrive_list_by_folder'
-	]);	
-	
+	]);
+
 	$router->get('/send_mail', [
 		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
-	]);	
-	
-	
-	/*START GENERATE PLAYSTORE ASSET*/	
+	]);
+
+
+	/*START GENERATE PLAYSTORE ASSET*/
 	$router->get('/generate_icon/{title}/{subtitle}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
 	]);
@@ -86,45 +86,45 @@ $router->group(['namespace' => 'Eks'], function() use ($router)
 });
 $router->group(['prefix' => 'v2','namespace' => 'V2'], function() use ($router)
 {
-    
+
 	$router->get('/search/{q}', [
 		'as' => 'search', 'uses' => 'HomeController@search'
 	]);
-	
+
 	$router->get('/playlist/{q}', [
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive', [
 		'as' => 'gdrive', 'uses' => 'HomeController@gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/upload', [
 		'as' => 'upload', 'uses' => 'HomeController@post_gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/post_gdrive_unlimited', [
 		'as' => 'post_gdrive_unlimited', 'uses' => 'HomeController@post_gdrive_unlimited'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive_find/', [
 		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_find2/', [
 		'as' => 'gdrive_find2', 'uses' => 'HomeController@gdrive_find2'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_list_by_folder/', [
 		'as' => 'gdrive_list_by_folder', 'uses' => 'HomeController@gdrive_list_by_folder'
-	]);	
-	
+	]);
+
 	$router->get('/send_mail', [
 		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
-	]);	
-	
-	
-	/*START GENERATE PLAYSTORE ASSET*/	
+	]);
+
+
+	/*START GENERATE PLAYSTORE ASSET*/
 	$router->get('/generate_icon/{title}/{subtitle}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
 	]);
@@ -155,45 +155,46 @@ $router->group(['prefix' => 'v2','namespace' => 'V2'], function() use ($router)
 });
 $router->group(['prefix' => 'v3','namespace' => 'V3'], function() use ($router)
 {
-    
+//    Harap baca di server ini diganti -> vim vendor/alaouy/youtube/src/YoutubeServiceProvider.php
+
 	$router->get('/search/{q}', [
 		'as' => 'search', 'uses' => 'HomeController@search'
 	]);
-	
+
 	$router->get('/playlist/{q}', [
 		'as' => 'playlist', 'uses' => 'HomeController@playlist'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive', [
 		'as' => 'gdrive', 'uses' => 'HomeController@gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/upload', [
 		'as' => 'upload', 'uses' => 'HomeController@post_gdrive'
-	]);	
-	
+	]);
+
 	$router->post('/post_gdrive_unlimited', [
 		'as' => 'post_gdrive_unlimited', 'uses' => 'HomeController@post_gdrive_unlimited'
-	]);	
-	
+	]);
+
 	$router->get('/gdrive_find/', [
 		'as' => 'gdrive_find', 'uses' => 'HomeController@gdrive_find'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_find2/', [
 		'as' => 'gdrive_find2', 'uses' => 'HomeController@gdrive_find2'
-	]);	
-	
+	]);
+
 	$router->post('/gdrive_list_by_folder/', [
 		'as' => 'gdrive_list_by_folder', 'uses' => 'HomeController@gdrive_list_by_folder'
-	]);	
-	
+	]);
+
 	$router->get('/send_mail', [
 		'as' => 'send_mail', 'uses' => 'HomeController@send_mail'
-	]);	
-	
-	
-	/*START GENERATE PLAYSTORE ASSET*/	
+	]);
+
+
+	/*START GENERATE PLAYSTORE ASSET*/
 	$router->get('/generate_icon/{title}/{subtitle}', [
 		'as' => 'generate_icon', 'uses' => 'HomeController@generate_icon'
 	]);
