@@ -427,7 +427,7 @@ class HomeController extends Controller
 		$lang		= $_GET['lang'];
 		
 		$video	= Youtube::getPlaylistItemsByPlaylistId($id);
-		$file = "C:\ xampp\htdocs\apk\KEYSTORE\ ".$app_id."\DESC.html";
+		$file = "C:\ xampp\htdocs\ApkPemutarMusik\KEYSTORE\ ".$app_id."\DESC.html";
 		$file = str_replace(' ','',$file);
 		if($lang=='id'){
 			$cont = "Halo. Selamat Datang di aplikasi $appName. Di aplikasi ini, kalian bisa mendengarkan lagu/audio $appName yang populer dan sedang
@@ -461,11 +461,11 @@ class HomeController extends Controller
 		if($lang=='id'){
 			$cont .= "<br/>Dan Masih banyak audio lainnya.<br/>";
 			$cont .= "<br/>Di aplikasi pemutar MP3 ini, kalian bisa menggunakan fitur pencarian untuk mencari dan menambahkan audio $appName yang mungkin tidak ada di playlist anda. Semoga teman-teman sekalian terhibur dengan aplikasi ini. Jika berkenan teman-teman bisa memberi rating di aplikasi ini untuk mensupport developer.";
-			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke email pengembang di everydaymusicapp@gmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
+			$cont .= "<br/><br/>Disclaimer: <br/>Ini adalah Aplikasi Tidak Resmi. Semua merek dagang dan hak cipta dilindungi oleh pemiliknya masing-masing. Kami tidak bertanggung jawab atas konten yang dihosting oleh pihak ketiga dan tidak terlibat dalam pengunduhan / pengunggahan. kami hanya menyajikan konten yang tersedia di Internet. Jika menurut Anda ada konten yang melanggar undang-undang kekayaan intelektual dan Anda memegang hak cipta dari konten tersebut, harap laporkan ke email pengembang di santiapps@protonmail.com dan konten tersebut akan segera dihapus. Dengan menggunakan Aplikasi ini, Anda menyatakan setuju terhadap kebijakan ini. Jika Anda tidak setuju dengan kebijakan ini, mohon untuk tidak menggunakannya.";
 		}else{
 			$cont .= "<br/>And many others.<br/>";
 			$cont .= "<br/>In this MP3 player application, you can use the search feature to find and add audio that may not be in your playlist. Hope you guys are entertained with this application. All features are free, you just need to rate this application to support the developer, if you like.";
-			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to everydaymusicapp@gmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
+			$cont .= "<br/><br/>Disclaimer: <br/>This is an Unofficial Application. All trademarks and copyrights are protected by their respective owners. We are not responsible for the content hosted by third parties and are not involved in the download / upload. we only present content that is available on the Internet. If you think there is content that violates intellectual property laws and you hold the copyright of the content, please report it to santiapps@protonmail.com and the content will be removed immediately. By using this application, you agree to this policy. If you do not agree with this policy, please do not use it.";
 		}
 		file_put_contents($file, $cont, LOCK_EX);
 	}
@@ -490,7 +490,7 @@ class HomeController extends Controller
 		$image_4 = imagecreatefrompng(base_path('public/assets/generated/logo512.png'));
 		$image_2 = imagecreatefrompng(base_path('public/assets/images/phone.png'));
 		$image_6 = imagecreatefrompng(base_path('public/assets/images/ps.png'));
-		$myBG = "C:\ xampp\ htdocs\ apk\ KEYSTORE\ $app_id\ bg.jpg";
+		$myBG = "C:\ xampp\ htdocs\ ApkPemutarMusik\ KEYSTORE\ $app_id\ bg.jpg";
 		
 		$image_7 = imagecreatefromjpeg(str_replace(' ','',$myBG));
 		$image_3 = imagecreatefrompng($capture[0]);
@@ -561,7 +561,7 @@ class HomeController extends Controller
 		
 		//resize to playstore format
 		// $this->resizeImage(2598,2598,base_path("public/assets/playstore/banner.png"),base_path("public/assets/playstore/banner_2598.png")	);
-		$deskuy = "C:\ xampp\htdocs\apk\KEYSTORE\ $app_id\banner_1024.png";
+		$deskuy = "C:\ xampp\htdocs\ApkPemutarMusik\KEYSTORE\ $app_id\banner_1024.png";
 		$deskuy = str_replace(' ','',$deskuy);
 		$this->resizeImage(1024,500,base_path("public/assets/playstore/banner.png"),$deskuy);
 		
