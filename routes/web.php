@@ -99,6 +99,10 @@ $router->group(['prefix' => 'v2','namespace' => 'V2'], function() use ($router)
 		'as' => 'gdrive', 'uses' => 'HomeController@gdrive'
 	]);
 
+	$router->get('/cekClient', [
+		'as' => 'gdrive', 'uses' => 'HomeController@cekClient'
+	]);
+
 	$router->post('/upload', [
 		'as' => 'upload', 'uses' => 'HomeController@post_gdrive'
 	]);
