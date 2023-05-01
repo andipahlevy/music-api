@@ -359,11 +359,11 @@ class HomeController extends Controller
 
 			$file = new Google_Service_Drive_DriveFile();
 			$file->setParents(array(array('id'=>$req->folder)));
-			// $file->setName($_FILES["fileToUpload"]["name"]);
+			 $file->setName($_FILES["fileToUpload"]["name"]);
 			$file->setName($req->fileName);
 			$result = $service->files->create($file, array(
-					 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
-//					'data' => file_get_contents($req->filePath),
+//					 'data' => file_get_contents($_FILES["fileToUpload"]["tmp_name"]),
+					'data' => file_get_contents($req->filePath),
 					'mimeType' => 'application/octet-stream',
 					'uploadType' => 'multipart',
 					'supportsAllDrives' => true ,
