@@ -24,6 +24,7 @@ class HomeController extends Controller
 
     public function __construct(Request $req)
     {
+        ini_set('memory_limit', '-1');
         $this->redirectUri     = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php/v2/cekClient';
         $this->tokenFile     = base_path("public/gdrive_auth/token.json");
 
@@ -108,16 +109,12 @@ class HomeController extends Controller
 
     public function gdrive_find2(Request $req)
     {
-        $client = $this->getClient()[1];
-        if(!$this->getClient()[0]){
-            $this->send_mail();
-            die;
-        }
+        $client = $this->getClient2();
         if($req->type == 'folder'){
             $q = "name = '{$req->name}' and mimeType = 'application/vnd.google-apps.folder' and trashed=false";
             $parents = ["0AJcO6d0iN8ynUk9PVA"];
         }else{
-            $q = "name = '{$req->name}' and mimeType contains 'audio' and trashed=false";
+            $q = "name = '{$req->name}' and trashed=false";
             $parents = [$req->folder];
         }
         $service = new Google_Service_Drive($client);
@@ -360,7 +357,7 @@ class HomeController extends Controller
         try{
 
             $file = new Google_Service_Drive_DriveFile();
-            $file->setParents(array('id'=>$req->folder));
+            $file->setParents(array($req->folder));
             // $file->setName($_FILES["fileToUpload"]["name"]);
             $file->setName($req->fileName);
             $result = $service->files->create($file, array(
