@@ -320,9 +320,7 @@ class HomeController extends Controller
         $client->setAccessToken($accessToken);
 
         // Refresh the token if it's expired.
-//        dd($client->isAccessTokenExpired());
-//        if ($client->isAccessTokenExpired()) {
-        if (1==1) {
+        if ($client->isAccessTokenExpired()) {
 
             // save refresh token to some variable
             $refreshTokenSaved = $client->getRefreshToken();
@@ -334,7 +332,7 @@ class HomeController extends Controller
             $accessTokenUpdated = $client->getAccessToken();
 
             // append refresh token
-            $accessTokenUpdated['refresh_token'] = $refreshTokenSaved;
+            $accessTokenUpdated['refresh_token'] = $accessTokenUpdated;
 
             //Set the new acces token
             $accessToken = $refreshTokenSaved;
