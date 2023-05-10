@@ -349,7 +349,7 @@ class HomeController extends Controller
     {
 
         // ketika token habis harus pke screen akses ke endpoin /cekClient
-        // http://52.54.88.194/index.php/v2/cekClient
+        // http://52.54.88.194/index.php/v2/cekClient hapus dlu file token
 
         $client = $this->getClient2();
 
